@@ -60,6 +60,23 @@ status FN_DECL_MUST_CHECK
 secure_buffer_create(
     secure_buffer** buffer, RCPR_SYM(allocator)* alloc, size_t size);
 
+/******************************************************************************/
+/* Start of accessors.                                                        */
+/******************************************************************************/
+
+/**
+ * \brief Given a \ref secure_buffer instance, return the resource handle for
+ * this \ref secure_buffer instance.
+ *
+ * \param buffer        The \ref secure_buffer instance from which the resource
+ *                      handle is returned.
+ *
+ * \returns the resource handle for this \ref secure_buffer instance.
+ */
+RCPR_SYM(resource)*
+secure_buffer_resource_handle(
+    secure_buffer* buffer);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
