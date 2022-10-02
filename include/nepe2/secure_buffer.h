@@ -77,6 +77,18 @@ RCPR_SYM(resource)*
 secure_buffer_resource_handle(
     secure_buffer* buffer);
 
+/**
+ * \brief Given a \ref secure_buffer instance, return the data pointer and size.
+ *
+ * \param size          Pointer to the size variable to receive the size.
+ * \param buffer        The \ref secure_buffer instance to access.
+ *
+ * \returns the data pointer for this secure buffer.
+ */
+void*
+secure_buffer_data(
+    size_t* size, secure_buffer* buffer);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
