@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 3.25)
 cmake_policy(SET CMP0048 NEW)
 PROJECT(nepe2base VERSION 0.1.0)
 
