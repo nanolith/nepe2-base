@@ -43,21 +43,25 @@ SET(NEPE2BASE_TEST_SOURCES
 ADD_LIBRARY(nepe2base STATIC
     ${NEPE2BASE_SOURCES})
 TARGET_COMPILE_OPTIONS(
-    nepe2base PRIVATE -fPIC -O2
+    nepe2base PRIVATE -fPIC -O2 ${RCPR_CFLAGS}
     -Wall -Werror -Wextra -Wpedantic -Wno-unused-command-line-argument)
+TARGET_LINK_LIBRARIES(
+    nepe2base PRIVATE ${RCPR_LDFLAGS})
 
 ADD_LIBRARY(nepe2base-${CMAKE_PROJECT_VERSION} SHARED
     ${NEPE2BASE_SOURCES})
 TARGET_COMPILE_OPTIONS(
-    nepe2base-${CMAKE_PROJECT_VERSION} PRIVATE -fPIC -O2
+    nepe2base-${CMAKE_PROJECT_VERSION} PRIVATE -fPIC -O2 ${RCPR_CFLAGS}
     -Wall -Werror -Wextra -Wpedantic -Wno-unused-command-line-argument
     ${USE_EXTERN_ASSEMBLER})
+TARGET_LINK_LIBRARIES(
+    nepe2base-${CMAKE_PROJECT_VERSION} PRIVATE ${RCPR_LDFLAGS})
 
 ADD_EXECUTABLE(testnepe2base
     ${NEPE2BASE_SOURCES} ${NEPE2BASE_TEST_SOURCES})
 
 TARGET_COMPILE_OPTIONS(
-    testnepe2base PRIVATE -g -O0 --coverage ${MINUNIT_CFLAGS}
+    testnepe2base PRIVATE -g -O0 --coverage ${MINUNIT_CFLAGS} ${RCPR_CFLAGS}
                      -Wall -Werror -Wextra -Wpedantic
                      -Wno-unused-command-line-argument ${USE_EXTERN_ASSEMBLER})
 TARGET_LINK_LIBRARIES(
