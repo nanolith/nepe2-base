@@ -15,6 +15,8 @@
 RCPR_IMPORT_allocator;
 RCPR_IMPORT_resource;
 
+RCPR_MODEL_STRUCT_TAG_GLOBAL_EXTERN(secure_buffer);
+
 /**
  * \brief Create a secure buffer of the given size using the given allocator.
  *
@@ -62,10 +64,11 @@ secure_buffer_create(
         goto done;
     }
 
-    /* clear out the structure. */
-    memset(tmp, 0, sizeof(*tmp));
+    /* clear memory. */
+    RCPR_MODEL_EXEMPT(memset(tmp, 0, sizeof(*tmp)));
 
     /* the tag is not set by default. */
+    tmp->RCPR_MODEL_STRUCT_TAG_REF(secure_buffer) = 0;
     RCPR_MODEL_ASSERT_STRUCT_TAG_NOT_INITIALIZED(
         tmp->RCPR_MODEL_STRUCT_TAG_REF(secure_buffer), secure_buffer);
 
@@ -77,6 +80,7 @@ secure_buffer_create(
     resource_init(&tmp->hdr, &secure_buffer_resource_release);
     tmp->alloc = alloc;
     tmp->size = size;
+    tmp->data = NULL;
 
     /* allocate buffer memory. */
     retval = allocator_allocate(alloc, &tmp->data, size);
@@ -86,7 +90,7 @@ secure_buffer_create(
     }
 
     /* clear buffer memory. */
-    memset(tmp->data, 0, size);
+    RCPR_MODEL_EXEMPT(memset(tmp->data, 0, size));
 
     /* verify that this secure buffer is now valid. */
     RCPR_MODEL_ASSERT(prop_secure_buffer_valid(tmp));

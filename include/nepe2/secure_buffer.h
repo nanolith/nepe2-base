@@ -89,6 +89,21 @@ void*
 secure_buffer_data(
     size_t* size, secure_buffer* buffer);
 
+/******************************************************************************/
+/* Start of model checking properties.                                        */
+/******************************************************************************/
+
+/**
+ * \brief Valid secure buffer property.
+ *
+ * \param buffer        The secure buffer instance to be verified.
+ *
+ * \returns true if the secure buffer instance is valid.
+ */
+bool
+prop_secure_buffer_valid(
+    const secure_buffer* buffer);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
