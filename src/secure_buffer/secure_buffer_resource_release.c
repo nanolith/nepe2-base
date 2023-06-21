@@ -41,12 +41,16 @@ status secure_buffer_resource_release(RCPR_SYM(resource)* r)
     /* if the buffer is set, reclaim it. */
     if (NULL != buffer->data)
     {
-        memset(buffer->data, 0, buffer->size);
+        RCPR_MODEL_EXEMPT(memset(buffer->data, 0, buffer->size));
         data_reclaim_retval = allocator_reclaim(alloc, buffer->data);
     }
 
     /* clear memory. */
-    memset(buffer, 0, sizeof(*buffer));
+    RCPR_MODEL_EXEMPT(memset(tmp, 0, sizeof(*tmp)));
+    buffer->hdr.release = NULL;
+    buffer->alloc = NULL;
+    buffer->size = 0;
+    buffer->data = NULL;
 
     /* reclaim memory. */
     reclaim_retval = allocator_reclaim(alloc, buffer);
