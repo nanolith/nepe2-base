@@ -42,6 +42,17 @@ struct metadata
     bool legacy_flag;
 };
 
+/**
+ * \brief Release a \ref metadata resource.
+ *
+ * \param r             Pointer to the \ref metadata resource to be released.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - an error code on failure.
+ */
+status metadata_resource_release(RCPR_SYM(resource)* r);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
