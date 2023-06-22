@@ -536,6 +536,28 @@ status FN_DECL_MUST_CHECK
 metadata_kdf_name_set(
     metadata* meta, const char* kdf_name);
 
+/**
+ * \brief Get the kdf name for a given \ref metadata instance.
+ *
+ * \param kdf_name          Pointer to hold the kdf name pointer on success.
+ * \param meta              The metadata instance for this operation.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - ERROR_METADATA_FIELD_NOT_SET if the method fails because this field
+ *        has not been set.
+ *
+ * \pre
+ *      - \p kdf_name must be a valid pointer.
+ *      - \p meta must reference a valid \ref metadata instance.
+ * \post
+ *      - On success, \p kdf_name is set to the kdf_name of this instance.
+ *      - On failure, \p kdf_name is unchanged.
+ */
+status FN_DECL_MUST_CHECK
+metadata_kdf_name_get(
+    const char** kdf_name, const metadata* meta);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
