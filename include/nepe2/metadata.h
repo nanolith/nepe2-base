@@ -508,6 +508,34 @@ bool
 metadata_empty_flag_get(
     const metadata* meta);
 
+/**
+ * \brief Set the KDF algorithm name for a given \ref metadata instance.
+ *
+ * \param meta          The metadata instance for this operation.
+ * \param kdf_name      The name of the KDF algorithm for this instance.
+ *
+ * \note If this \ref metadata instance is currently empty, and if this is the
+ * last field to set in order to make it whole, then this setter will make the
+ * instance whole. This setter copies the kdf name to an internal secure buffer.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - ERROR_GENERAL_OUT_OF_MEMORY if this method failed due to an
+ *        out-of-memory condition.
+ *
+ * \pre
+ *      - \p meta must reference a valid \ref metadata instance.
+ *      - \p kdf_name must be a valid pointer pointing to a valid character
+ *        string.
+ * \post
+ *      - On success, the \p kdf_name field for this \ref metadata instance is
+ *        set to a copy of the data provided.
+ *      - On failure, \p meta is unchanged.
+ */
+status FN_DECL_MUST_CHECK
+metadata_kdf_name_set(
+    metadata* meta, const char* kdf_name);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
