@@ -47,7 +47,7 @@ typedef struct metadata metadata;
  *        out-of-memory condition.
  *
  * \pre
- *      - \p buffer must not reference a valid \ref metadata instance and
+ *      - \p meta must not reference a valid \ref metadata instance and
  *        must not be NULL.
  *      - \p alloc must reference a valid \ref allocator and must not be NULL.
  * \post
@@ -59,6 +59,39 @@ typedef struct metadata metadata;
 status FN_DECL_MUST_CHECK
 metadata_create(
     metadata** meta, RCPR_SYM(allocator)* alloc);
+
+/******************************************************************************/
+/* Start of accessors.                                                        */
+/******************************************************************************/
+
+/**
+ * \brief Set the hash id for a given \ref metadata instance.
+ *
+ * \param meta          The metadata instance for this operation.
+ * \param hash_id       The binary hash_id to set for this operation.
+ * \param hash_id_size  The size of this hash id.
+ *
+ * \note If this \ref metadata instance is currently empty, and if this is the
+ * last field to set in order to make it whole, then this setter will make the
+ * instance whole. This setter copies the hash id to an internal secure buffer.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - ERROR_GENERAL_OUT_OF_MEMORY if this method failed due to an
+ *        out-of-memory condition.
+ *
+ * \pre
+ *      - \p meta must reference a valid \ref metadata instance.
+ *      - \p hash_id must be a valid pointer pointing to a valid memory region
+ *        that is at least \p hash_id_size in length.
+ * \post
+ *      - On success, the \p hash_id field for this \ref metadata instance is
+ *        set to a copy of the data provided.
+ *      - On failure, \p meta is unchanged.
+ */
+status FN_DECL_MUST_CHECK
+metadata_hash_id_set(
+    metadata* meta, const void* hash_id, size_t hash_id_size);
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
