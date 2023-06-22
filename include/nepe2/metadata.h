@@ -261,7 +261,7 @@ metadata_creation_date_get(
  *      - \p meta must reference a valid \ref metadata instance.
  * \post
  *      - On success, the \p revocation date field for this \ref metadata
- *      instance is set to \p revocation_date.
+ *        instance is set to \p revocation_date.
  *      - On failure, \p meta is unchanged.
  */
 status FN_DECL_MUST_CHECK
@@ -308,7 +308,7 @@ metadata_revocation_date_get(
  *      - \p meta must reference a valid \ref metadata instance.
  * \post
  *      - On success, the \p expiration date field for this \ref metadata
- *      instance is set to \p expiration_date.
+ *        instance is set to \p expiration_date.
  *      - On failure, \p meta is unchanged.
  */
 status FN_DECL_MUST_CHECK
@@ -355,7 +355,7 @@ metadata_expiration_date_get(
  *      - \p meta must reference a valid \ref metadata instance.
  * \post
  *      - On success, the \p password_length field for this \ref metadata
- *      instance is set to \p password_length
+ *        instance is set to \p password_length.
  *      - On failure, \p meta is unchanged.
  */
 status FN_DECL_MUST_CHECK
@@ -384,6 +384,30 @@ metadata_password_length_set(
 status FN_DECL_MUST_CHECK
 metadata_password_length_get(
     uint32_t* password_length, const metadata* meta);
+
+/**
+ * \brief Set the generation for a given \ref metadata instance.
+ *
+ * \param meta              The metadata instance for this operation.
+ * \param generation        The generation for this operation.
+ *
+ * \note If this \ref metadata instance is currently empty, and if this is the
+ * last field to set in order to make it whole, then this setter will make the
+ * instance whole. This setter copies the generation to the instance.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *
+ * \pre
+ *      - \p meta must reference a valid \ref metadata instance.
+ * \post
+ *      - On success, the \p generation field for this \ref metadata
+ *        instance is set to \p generation.
+ *      - On failure, \p meta is unchanged.
+ */
+status FN_DECL_MUST_CHECK
+metadata_generation_set(
+    metadata* meta, uint32_t password);
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
