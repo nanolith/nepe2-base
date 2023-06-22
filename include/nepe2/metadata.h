@@ -175,6 +175,29 @@ status FN_DECL_MUST_CHECK
 metadata_version_set(
     metadata* meta, uint32_t version);
 
+/**
+ * \brief Get the version for a given \ref metadata instance.
+ *
+ * \param version       Pointer to hold the version pointer to hold the version
+ *                      on success.
+ * \param meta          The metadata instance for this operation.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - ERROR_METADATA_FIELD_NOT_SET if the method fails because this field
+ *        has not been set.
+ *
+ * \pre
+ *      - \p version must be a valid pointer.
+ *      - \p meta must reference a valid \ref metadata instance.
+ * \post
+ *      - On success, \p version is set to the version of this instance.
+ *      - On failure, \p version is unchanged.
+ */
+status FN_DECL_MUST_CHECK
+metadata_version_get(
+    uint32_t* version, const metadata* meta);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
