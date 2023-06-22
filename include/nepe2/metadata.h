@@ -178,8 +178,7 @@ metadata_version_set(
 /**
  * \brief Get the version for a given \ref metadata instance.
  *
- * \param version       Pointer to hold the version pointer to hold the version
- *                      on success.
+ * \param version       Pointer to hold the version on success.
  * \param meta          The metadata instance for this operation.
  *
  * \returns a status code indicating success or failure.
@@ -221,6 +220,29 @@ metadata_version_get(
 status FN_DECL_MUST_CHECK
 metadata_creation_date_set(
     metadata* meta, uint64_t creation_date);
+
+/**
+ * \brief Get the creation date for a given \ref metadata instance.
+ *
+ * \param creation_date Pointer to hold the creation date on success.
+ * \param meta          The metadata instance for this operation.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - ERROR_METADATA_FIELD_NOT_SET if the method fails because this field
+ *        has not been set.
+ *
+ * \pre
+ *      - \p creation_date must be a valid pointer.
+ *      - \p meta must reference a valid \ref metadata instance.
+ * \post
+ *      - On success, \p creation_date is set to the creation date of this
+ *        instance.
+ *      - On failure, \p version is unchanged.
+ */
+status FN_DECL_MUST_CHECK
+metadata_creation_date_get(
+    uint64_t* creation_date, const metadata* meta);
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
