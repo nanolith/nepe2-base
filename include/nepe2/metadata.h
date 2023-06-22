@@ -13,6 +13,8 @@
 #include <nepe2/secure_buffer.h>
 #include <rcpr/allocator.h>
 #include <rcpr/resource.h>
+#include <stdbool.h>
+#include <stdint.h>
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
@@ -430,6 +432,30 @@ metadata_generation_set(
 status FN_DECL_MUST_CHECK
 metadata_generation_get(
     uint32_t* generation, const metadata* meta);
+
+/**
+ * \brief Set the legacy flag for a given \ref metadata instance.
+ *
+ * \param meta              The metadata instance for this operation.
+ * \param legacy_flag       The legacy flag for this operation.
+ *
+ * \note If this \ref metadata instance is currently empty, and if this is the
+ * last field to set in order to make it whole, then this setter will make the
+ * instance whole. This setter copies the legacy flag to the instance.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *
+ * \pre
+ *      - \p meta must reference a valid \ref metadata instance.
+ * \post
+ *      - On success, the \p legacy_flag field for this \ref metadata instance
+ *        is set to \p legacy_flag.
+ *      - On failure, \p meta is unchanged.
+ */
+status FN_DECL_MUST_CHECK
+metadata_legacy_flag_set(
+    metadata* meta, bool legacy_flag);
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
