@@ -46,7 +46,7 @@ status secure_buffer_resource_release(RCPR_SYM(resource)* r)
     }
 
     /* clear memory. */
-    RCPR_MODEL_EXEMPT(memset(tmp, 0, sizeof(*tmp)));
+    RCPR_MODEL_EXEMPT(memset(buffer, 0, sizeof(*buffer)));
     buffer->hdr.release = NULL;
     buffer->alloc = NULL;
     buffer->size = 0;
