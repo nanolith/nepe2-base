@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include <nepe2/secure_buffer.h>
 #include <rcpr/allocator.h>
 #include <rcpr/resource.h>
 
@@ -92,6 +93,34 @@ metadata_create(
 status FN_DECL_MUST_CHECK
 metadata_hash_id_set(
     metadata* meta, const void* hash_id, size_t hash_id_size);
+
+/**
+ * \brief Set the hash id from a secure buffer for a given \ref metadata
+ * instance.
+ *
+ * \param meta          The metadata instance for this operation.
+ * \param buffer        The \ref secure_buffer instance to use for this setter.
+ *
+ * \note If this \ref metadata instance is currently empty, and if this is the
+ * last field to set in order to make it whole, then this setter will make the
+ * instance whole. This setter copies the hash id to an internal secure buffer.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - ERROR_GENERAL_OUT_OF_MEMORY if this method failed due to an
+ *        out-of-memory condition.
+ *
+ * \pre
+ *      - \p meta must reference a valid \ref metadata instance.
+ *      - \p buffer must reference a valid \ref secure_buffer instance.
+ * \post
+ *      - On success, the \p hash_id field for this \ref metadata instance is
+ *        set to a copy of the data provided.
+ *      - On failure, \p meta is unchanged.
+ */
+status FN_DECL_MUST_CHECK
+metadata_hash_id_set_from_secure_buffer(
+    metadata* meta, const secure_buffer* buffer);
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
