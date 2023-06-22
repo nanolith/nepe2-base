@@ -68,6 +68,19 @@ metadata_create(
 /******************************************************************************/
 
 /**
+ * \brief Given a \ref metadata instance, return the resource handle for this
+ * \ref metadata instance.
+ *
+ * \param meta          The \ref metadata instance from which the resource
+ *                      handle is returned.
+ *
+ * \returns the resource handle for this \ref metadata instance.
+ */
+RCPR_SYM(resource)*
+metadata_resource_handle(
+    metadata* meta);
+
+/**
  * \brief Set the hash id for a given \ref metadata instance.
  *
  * \param meta          The metadata instance for this operation.
