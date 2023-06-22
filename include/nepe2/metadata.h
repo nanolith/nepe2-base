@@ -422,7 +422,7 @@ metadata_password_length_get(
  */
 status FN_DECL_MUST_CHECK
 metadata_generation_set(
-    metadata* meta, uint32_t password);
+    metadata* meta, uint32_t generation);
 
 /**
  * \brief Get the generation for a given \ref metadata instance.
