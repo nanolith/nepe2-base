@@ -268,6 +268,29 @@ status FN_DECL_MUST_CHECK
 metadata_revocation_date_set(
     metadata* meta, uint64_t revocation_date);
 
+/**
+ * \brief Get the revocation date for a given \ref metadata instance.
+ *
+ * \param revocation_date   Pointer to hold the creation date on success.
+ * \param meta              The metadata instance for this operation.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - ERROR_METADATA_FIELD_NOT_SET if the method fails because this field
+ *        has not been set.
+ *
+ * \pre
+ *      - \p revocation_date must be a valid pointer.
+ *      - \p meta must reference a valid \ref metadata instance.
+ * \post
+ *      - On success, \p revocation_date is set to the revocation date of this
+ *        instance.
+ *      - On failure, \p version is unchanged.
+ */
+status FN_DECL_MUST_CHECK
+metadata_revocation_date_get(
+    uint64_t* revocation_date, const metadata* meta);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
