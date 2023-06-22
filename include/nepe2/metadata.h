@@ -479,6 +479,22 @@ status FN_DECL_MUST_CHECK
 metadata_legacy_flag_get(
     bool* legacy_flag, const metadata* meta);
 
+/**
+ * \brief Get the empty flag for a given \ref metadata instance.
+ *
+ * \param meta              The metadata instance for this operation.
+ *
+ * \returns the empty flag.
+ *
+ * \pre
+ *      - \p meta must reference a valid \ref metadata instance.
+ * \post
+ *      - returns the empty flag for this \ref metadata instance.
+ */
+bool
+metadata_empty_flag_get(
+    const metadata* meta);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
