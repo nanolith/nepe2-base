@@ -338,6 +338,30 @@ status FN_DECL_MUST_CHECK
 metadata_expiration_date_get(
     uint64_t* expiration_date, const metadata* meta);
 
+/**
+ * \brief Set the password length for a given \ref metadata instance.
+ *
+ * \param meta              The metadata instance for this operation.
+ * \param password_length   The password length for this operation.
+ *
+ * \note If this \ref metadata instance is currently empty, and if this is the
+ * last field to set in order to make it whole, then this setter will make the
+ * instance whole. This setter copies the password length to the instance.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *
+ * \pre
+ *      - \p meta must reference a valid \ref metadata instance.
+ * \post
+ *      - On success, the \p password_length field for this \ref metadata
+ *      instance is set to \p password_length
+ *      - On failure, \p meta is unchanged.
+ */
+status FN_DECL_MUST_CHECK
+metadata_password_length_set(
+    metadata* meta, uint32_t password_length);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
