@@ -151,6 +151,30 @@ status FN_DECL_MUST_CHECK
 metadata_hash_id_get(
     const void** hash_id, size_t* hash_id_size, const metadata* meta);
 
+/**
+ * \brief Set the version for a given \ref metadata instance.
+ *
+ * \param meta          The metadata instance for this operation.
+ * \param version       The version for this operation.
+ *
+ * \note If this \ref metadata instance is currently empty, and if this is the
+ * last field to set in order to make it whole, then this setter will make the
+ * instance whole. This setter copies the hash id to an internal secure buffer.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *
+ * \pre
+ *      - \p meta must reference a valid \ref metadata instance.
+ * \post
+ *      - On success, the \p version field for this \ref metadata instance is
+ *        set to \p version.
+ *      - On failure, \p meta is unchanged.
+ */
+status FN_DECL_MUST_CHECK
+metadata_version_set(
+    metadata* meta, uint32_t version);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
