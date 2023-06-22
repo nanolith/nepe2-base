@@ -68,7 +68,7 @@ secure_buffer_create(
     RCPR_MODEL_EXEMPT(memset(tmp, 0, sizeof(*tmp)));
 
     /* the tag is not set by default. */
-    tmp->RCPR_MODEL_STRUCT_TAG_REF(secure_buffer) = 0;
+    RCPR_MODEL_ONLY(tmp->RCPR_MODEL_STRUCT_TAG_REF(secure_buffer) = 0);
     RCPR_MODEL_ASSERT_STRUCT_TAG_NOT_INITIALIZED(
         tmp->RCPR_MODEL_STRUCT_TAG_REF(secure_buffer), secure_buffer);
 
