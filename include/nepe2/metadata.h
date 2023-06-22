@@ -401,13 +401,35 @@ metadata_password_length_get(
  * \pre
  *      - \p meta must reference a valid \ref metadata instance.
  * \post
- *      - On success, the \p generation field for this \ref metadata
- *        instance is set to \p generation.
+ *      - On success, the \p generation field for this \ref metadata instance is
+ *        set to \p generation.
  *      - On failure, \p meta is unchanged.
  */
 status FN_DECL_MUST_CHECK
 metadata_generation_set(
     metadata* meta, uint32_t password);
+
+/**
+ * \brief Get the generation for a given \ref metadata instance.
+ *
+ * \param generation        Pointer to hold the generation on success.
+ * \param meta              The metadata instance for this operation.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - ERROR_METADATA_FIELD_NOT_SET if the method fails because this field
+ *        has not been set.
+ *
+ * \pre
+ *      - \p generation must be a valid pointer.
+ *      - \p meta must reference a valid \ref metadata instance.
+ * \post
+ *      - On success, \p generation is set to the generation of this instance.
+ *      - On failure, \p generation is unchanged.
+ */
+status FN_DECL_MUST_CHECK
+metadata_generation_get(
+    uint32_t* generation, const metadata* meta);
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
