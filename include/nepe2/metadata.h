@@ -558,6 +558,34 @@ status FN_DECL_MUST_CHECK
 metadata_kdf_name_get(
     const char** kdf_name, const metadata* meta);
 
+/**
+ * \brief Set the encoding for a given \ref metadata instance.
+ *
+ * \param meta          The metadata instance for this operation.
+ * \param encoding      The name of the encoding for this instance.
+ *
+ * \note If this \ref metadata instance is currently empty, and if this is the
+ * last field to set in order to make it whole, then this setter will make the
+ * instance whole. This setter copies the encoding to an internal secure buffer.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - ERROR_GENERAL_OUT_OF_MEMORY if this method failed due to an
+ *        out-of-memory condition.
+ *
+ * \pre
+ *      - \p meta must reference a valid \ref metadata instance.
+ *      - \p encoding must be a valid pointer pointing to a valid character
+ *        string.
+ * \post
+ *      - On success, the \p encoding field for this \ref metadata instance is
+ *        set to a copy of the data provided.
+ *      - On failure, \p meta is unchanged.
+ */
+status FN_DECL_MUST_CHECK
+metadata_encoding_set(
+    metadata* meta, const char* encoding);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
