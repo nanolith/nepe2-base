@@ -10,3 +10,4 @@
 #pragma once
 
 #define ERROR_METADATA_FIELD_NOT_SET                                    0x3401
+#define ERROR_METADATA_BAD_ENCODING_LENGTH                              0x3402
