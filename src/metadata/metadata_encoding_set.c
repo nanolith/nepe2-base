@@ -47,6 +47,7 @@ metadata_encoding_set(
     bool symbolic = false;
     size_t encoding_length = strlen(encoding);
     secure_buffer* tmp = NULL;
+    secure_buffer* tmp2 = NULL;
     void* data = NULL;
     size_t data_size = 0U;
 
@@ -95,9 +96,24 @@ metadata_encoding_set(
     memset(data, 0, encoding_length + 1);
     memcpy(data, encoding, encoding_length);
 
-    /* success: set the field. */
+    /* cache the old encoding if set. */
+    tmp2 = meta->encoding;
+
+    /* set the new encoding. */
     meta->symbolic_encoding = symbolic;
     meta->encoding = tmp;
+
+    /* release the old encoding if set. */
+    if (NULL != tmp2)
+    {
+        retval = resource_release(secure_buffer_resource_handle(tmp2));
+        if (STATUS_SUCCESS != retval)
+        {
+            goto done;
+        }
+    }
+
+    /* success. */
     retval = STATUS_SUCCESS;
     goto done;
 
