@@ -608,6 +608,34 @@ status FN_DECL_MUST_CHECK
 metadata_encoding_get(
     const char** encoding, const metadata* meta);
 
+/**
+ * \brief Serialize a metadata record into a buffer.
+ *
+ * \param buffer        The pointer to the buffer pointer to hold the serialized
+ *                      data on success.
+ * \param alloc         The allocator to use for this operation.
+ * \param meta          The metadata instance to serialize.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - ERROR_GENERAL_OUT_OF_MEMORY if this method failed due to an
+ *        out-of-memory condition.
+ *
+ * \pre
+ *      - \p buffer must be a valid pointer whose pointer value does not
+ *        reference a valid buffer.
+ *      - \p alloc must reference a valid \ref allocator instance.
+ *      - \p meta must reference a valid \ref metadata instance.
+ * \post
+ *      - On success, the \p buffer pointer is updated to a pointer to a valid
+ *        \ref buffer instance holding the serialized data for the \ref metadata
+ *        instance.
+ *      - On failure, \p buffer is unchanged.
+ */
+status FN_DECL_MUST_CHECK
+metadata_to_buffer(
+    secure_buffer** buffer, RCPR_SYM(allocator)* alloc, const metadata* meta);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
