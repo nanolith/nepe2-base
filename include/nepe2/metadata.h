@@ -628,13 +628,42 @@ metadata_encoding_get(
  *      - \p meta must reference a valid \ref metadata instance.
  * \post
  *      - On success, the \p buffer pointer is updated to a pointer to a valid
- *        \ref buffer instance holding the serialized data for the \ref metadata
- *        instance.
+ *        \ref secure_buffer instance holding the serialized data for the \ref
+ *        metadata instance.
  *      - On failure, \p buffer is unchanged.
  */
 status FN_DECL_MUST_CHECK
 metadata_to_buffer(
     secure_buffer** buffer, RCPR_SYM(allocator)* alloc, const metadata* meta);
+
+/**
+ * \brief Serialize a metadata record from a buffer.
+ *
+ * \param meta          Pointer to hold the \ref metadata instance pointer on
+ *                      success.
+ * \param alloc         The allocator to use for this operation.
+ * \param buffer        The buffer to read this instance from.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - ERROR_GENERAL_OUT_OF_MEMORY if this method failed due to an
+ *        out-of-memory condition.
+ *      - ERROR_METADATA_SERIALIZATION_FAILED if the serialization failed.
+ *
+ * \pre
+ *      - \p meta must be a valid pointer whose pointer value does not
+ *        reference a valid \ref metadata instance.
+ *      - \p alloc must reference a valid \ref allocator instance.
+ *      - \p buffer must reference a valid \ref secure_buffer instance.
+ * \post
+ *      - On success, the \p meta pointer is updated to a pointer to a valid
+ *        \ref metadata instance holding the parsed data from the
+ *        \ref secure_buffer instance.
+ *      - On failure, \p meta is unchanged.
+ */
+status FN_DECL_MUST_CHECK
+metadata_from_buffer(
+    metadata** meta, RCPR_SYM(allocator)* alloc, const secure_buffer* buffer);
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
