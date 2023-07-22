@@ -76,7 +76,6 @@ metadata_to_buffer(
       + sizeof(meta->password_length)
       + sizeof(meta->generation)
       + sizeof(uint8_t) /* legacy_flag. */
-      + sizeof(uint32_t) /* hash_id.size */
       + sizeof(uint32_t) /* hash_id_size */
       + sizeof(uint32_t) /* kdf_name_size. */
       + sizeof(uint32_t) /* encoding_size. */
