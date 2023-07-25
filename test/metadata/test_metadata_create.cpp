@@ -238,3 +238,43 @@ TEST(metadata_creation_date_set_get)
     TEST_ASSERT(
         STATUS_SUCCESS == resource_release(allocator_resource_handle(alloc)));
 }
+
+/**
+ * We can set and get the revocation date.
+ */
+TEST(metadata_revocation_date_set_get)
+{
+    const uint64_t REVOCATION_DATE = 0x54321;
+    allocator* alloc = nullptr;
+    metadata* meta = nullptr;
+    uint64_t revocation_date = 0U;
+
+    /* we can successfully create a malloc allocator. */
+    TEST_ASSERT(STATUS_SUCCESS == malloc_allocator_create(&alloc));
+
+    /* we can successfully create a metadata instance. */
+    TEST_ASSERT(STATUS_SUCCESS == metadata_create(&meta, alloc));
+
+    /* if we attempt to get the revocation date before it is set,
+     * we get an error. */
+    TEST_EXPECT(
+        ERROR_METADATA_FIELD_NOT_SET
+            == metadata_revocation_date_get(&revocation_date, meta));
+
+    /* set the revocation date. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == metadata_revocation_date_set(meta, REVOCATION_DATE));
+
+    /* we can now get the revocation date. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == metadata_revocation_date_get(&revocation_date, meta));
+
+    /* the revocation date matches. */
+    TEST_EXPECT(REVOCATION_DATE == revocation_date);
+
+    /* clean up. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == resource_release(metadata_resource_handle(meta)));
+    TEST_ASSERT(
+        STATUS_SUCCESS == resource_release(allocator_resource_handle(alloc)));
+}
