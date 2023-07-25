@@ -162,3 +162,39 @@ TEST(metadata_hash_id_set_from_secure_buffer_get)
     TEST_ASSERT(
         STATUS_SUCCESS == resource_release(allocator_resource_handle(alloc)));
 }
+
+/**
+ * We can set and get the version.
+ */
+TEST(metadata_version_set_get)
+{
+    const uint32_t VERSION = 0x12345;
+    allocator* alloc = nullptr;
+    metadata* meta = nullptr;
+    uint32_t version = 0U;
+
+    /* we can successfully create a malloc allocator. */
+    TEST_ASSERT(STATUS_SUCCESS == malloc_allocator_create(&alloc));
+
+    /* we can successfully create a metadata instance. */
+    TEST_ASSERT(STATUS_SUCCESS == metadata_create(&meta, alloc));
+
+    /* if we attempt to get the version before it is set, we get an error. */
+    TEST_EXPECT(
+        ERROR_METADATA_FIELD_NOT_SET == metadata_version_get(&version, meta));
+
+    /* set the version. */
+    TEST_ASSERT(STATUS_SUCCESS == metadata_version_set(meta, VERSION));
+
+    /* we can now get the version. */
+    TEST_ASSERT(STATUS_SUCCESS == metadata_version_get(&version, meta));
+
+    /* the version matches. */
+    TEST_EXPECT(VERSION == version);
+
+    /* clean up. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == resource_release(metadata_resource_handle(meta)));
+    TEST_ASSERT(
+        STATUS_SUCCESS == resource_release(allocator_resource_handle(alloc)));
+}
