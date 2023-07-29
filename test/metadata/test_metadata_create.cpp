@@ -318,3 +318,43 @@ TEST(metadata_expiration_date_set_get)
     TEST_ASSERT(
         STATUS_SUCCESS == resource_release(allocator_resource_handle(alloc)));
 }
+
+/**
+ * We can set and get the password length.
+ */
+TEST(metadata_password_length_set_get)
+{
+    const uint32_t PASSWORD_LENGTH = 16;
+    allocator* alloc = nullptr;
+    metadata* meta = nullptr;
+    uint32_t password_length = 0U;
+
+    /* we can successfully create a malloc allocator. */
+    TEST_ASSERT(STATUS_SUCCESS == malloc_allocator_create(&alloc));
+
+    /* we can successfully create a metadata instance. */
+    TEST_ASSERT(STATUS_SUCCESS == metadata_create(&meta, alloc));
+
+    /* if we attempt to get the password length before it is set,
+     * we get an error. */
+    TEST_EXPECT(
+        ERROR_METADATA_FIELD_NOT_SET
+            == metadata_password_length_get(&password_length, meta));
+
+    /* set the password length. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == metadata_password_length_set(meta, PASSWORD_LENGTH));
+
+    /* we can now get the password length. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == metadata_password_length_get(&password_length, meta));
+
+    /* the password length matches. */
+    TEST_EXPECT(PASSWORD_LENGTH == password_length);
+
+    /* clean up. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == resource_release(metadata_resource_handle(meta)));
+    TEST_ASSERT(
+        STATUS_SUCCESS == resource_release(allocator_resource_handle(alloc)));
+}
