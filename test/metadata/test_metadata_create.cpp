@@ -397,3 +397,42 @@ TEST(metadata_generation_set_get)
     TEST_ASSERT(
         STATUS_SUCCESS == resource_release(allocator_resource_handle(alloc)));
 }
+
+/**
+ * We can set and get the legacy flag.
+ */
+TEST(metadata_legacy_flag_set_get)
+{
+    const bool LEGACY_FLAG = false;
+    allocator* alloc = nullptr;
+    metadata* meta = nullptr;
+    bool legacy_flag = true;
+
+    /* we can successfully create a malloc allocator. */
+    TEST_ASSERT(STATUS_SUCCESS == malloc_allocator_create(&alloc));
+
+    /* we can successfully create a metadata instance. */
+    TEST_ASSERT(STATUS_SUCCESS == metadata_create(&meta, alloc));
+
+    /* if we attempt to get the legacy flag before set, we get an error. */
+    TEST_EXPECT(
+        ERROR_METADATA_FIELD_NOT_SET
+            == metadata_legacy_flag_get(&legacy_flag, meta));
+
+    /* set the legacy flag. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == metadata_legacy_flag_set(meta, LEGACY_FLAG));
+
+    /* we can now get the legacy flag. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == metadata_legacy_flag_get(&legacy_flag, meta));
+
+    /* the legacy flag matches. */
+    TEST_EXPECT(LEGACY_FLAG == legacy_flag);
+
+    /* clean up. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == resource_release(metadata_resource_handle(meta)));
+    TEST_ASSERT(
+        STATUS_SUCCESS == resource_release(allocator_resource_handle(alloc)));
+}
