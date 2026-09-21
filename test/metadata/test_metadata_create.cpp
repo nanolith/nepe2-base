@@ -766,3 +766,49 @@ TEST(metadata_encoding_set_get_base_64)
     TEST_ASSERT(
         STATUS_SUCCESS == resource_release(allocator_resource_handle(alloc)));
 }
+
+/**
+ * We can set and get a base 128 encoding.
+ */
+TEST(metadata_encoding_set_get_base_128)
+{
+    char encoding[128];
+    allocator* alloc = nullptr;
+    metadata* meta = nullptr;
+    const char* encoding_ptr = nullptr;
+
+    /* just use default ASCII... */
+    for (int i = 0; i < 128; ++i) encoding[i] = i;
+
+    /* except that we will encode the ASCII zero as a space... */
+    encoding[0] = ' ';
+
+    /* we can successfully create a malloc allocator. */
+    TEST_ASSERT(STATUS_SUCCESS == malloc_allocator_create(&alloc));
+
+    /* we can successfully create a metadata instance. */
+    TEST_ASSERT(STATUS_SUCCESS == metadata_create(&meta, alloc));
+
+    /* if we attempt to get the encoding before it is set, we get an error. */
+    TEST_EXPECT(
+        ERROR_METADATA_FIELD_NOT_SET
+            == metadata_encoding_get(&encoding_ptr, meta));
+
+    /* set the encoding. */
+    TEST_ASSERT(STATUS_SUCCESS == metadata_encoding_set(meta, encoding));
+
+    /* we can now get the kdf name. */
+    TEST_ASSERT(STATUS_SUCCESS == metadata_encoding_get(&encoding_ptr, meta));
+
+    /* the encoding pointer is set by the getter. */
+    TEST_ASSERT(nullptr != encoding_ptr);
+
+    /* the data matches. */
+    TEST_EXPECT(!strcmp(encoding_ptr, encoding));
+
+    /* clean up. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == resource_release(metadata_resource_handle(meta)));
+    TEST_ASSERT(
+        STATUS_SUCCESS == resource_release(allocator_resource_handle(alloc)));
+}
