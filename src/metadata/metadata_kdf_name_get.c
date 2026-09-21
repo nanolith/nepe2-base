@@ -43,8 +43,7 @@ metadata_kdf_name_get(
     }
 
     /* get the data for this buffer. */
-    data =
-        (const char*)secure_buffer_data(&size, (secure_buffer*)&meta->kdf_name);
+    data = (const char*)secure_buffer_data(&size, meta->kdf_name);
 
     /* return the name to the caller. */
     *kdf_name = data;
