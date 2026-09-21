@@ -812,3 +812,104 @@ TEST(metadata_encoding_set_get_base_128)
     TEST_ASSERT(
         STATUS_SUCCESS == resource_release(allocator_resource_handle(alloc)));
 }
+
+/**
+ * Test that if we set all of the settings, this metadata instance is no longer
+ * "empty".
+ */
+TEST(empty_flag_get)
+{
+    const char* HASH_ID = "1234";
+    const uint32_t VERSION = 0x12345;
+    const uint64_t CREATION_DATE = 0x54321;
+    const uint64_t EXPIRATION_DATE = 0x54321;
+    const uint64_t REVOCATION_DATE = 0x54321;
+    const uint32_t PASSWORD_LENGTH = 17;
+    const uint32_t GENERATION = 2;
+    const bool LEGACY = false;
+    const char* KDF_ALGORITHM = "legacy";
+    const char* ENCODING = "SYMBOLIC-base64";
+
+    allocator* alloc = nullptr;
+    metadata* meta = nullptr;
+
+    /* we can successfully create a malloc allocator. */
+    TEST_ASSERT(STATUS_SUCCESS == malloc_allocator_create(&alloc));
+
+    /* we can successfully create a metadata instance. */
+    TEST_ASSERT(STATUS_SUCCESS == metadata_create(&meta, alloc));
+
+    /* for a new instance, the empty flag is set. */
+    TEST_ASSERT(metadata_empty_flag_get(meta));
+
+    /* Set the hash id. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == metadata_hash_id_set(meta, HASH_ID, strlen(HASH_ID)));
+
+    /* the empty flag is still true. */
+    TEST_ASSERT(metadata_empty_flag_get(meta));
+
+    /* Set the version. */
+    TEST_ASSERT(STATUS_SUCCESS == metadata_version_set(meta, VERSION));
+
+    /* the empty flag is still true. */
+    TEST_ASSERT(metadata_empty_flag_get(meta));
+
+    /* set the creation date. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == metadata_creation_date_set(meta, CREATION_DATE));
+
+    /* the empty flag is still true. */
+    TEST_ASSERT(metadata_empty_flag_get(meta));
+
+    /* set the expiration date. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == metadata_expiration_date_set(meta, EXPIRATION_DATE));
+
+    /* the empty flag is still true. */
+    TEST_ASSERT(metadata_empty_flag_get(meta));
+
+    /* set the revocation date. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == metadata_revocation_date_set(meta, REVOCATION_DATE));
+
+    /* the empty flag is still true. */
+    TEST_ASSERT(metadata_empty_flag_get(meta));
+
+    /* set the password length. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == metadata_password_length_set(meta, PASSWORD_LENGTH));
+
+    /* the empty flag is still true. */
+    TEST_ASSERT(metadata_empty_flag_get(meta));
+
+    /* set the generation. */
+    TEST_ASSERT(STATUS_SUCCESS == metadata_generation_set(meta, GENERATION));
+
+    /* the empty flag is still true. */
+    TEST_ASSERT(metadata_empty_flag_get(meta));
+
+    /* set the legacy flag. */
+    TEST_ASSERT(STATUS_SUCCESS == metadata_legacy_flag_set(meta, LEGACY));
+
+    /* the empty flag is still true. */
+    TEST_ASSERT(metadata_empty_flag_get(meta));
+
+    /* set the KDF algorithm. */
+    TEST_ASSERT(STATUS_SUCCESS == metadata_kdf_name_set(meta, KDF_ALGORITHM));
+
+    /* the empty flag is still true. */
+    TEST_ASSERT(metadata_empty_flag_get(meta));
+
+    /* set the encoding. */
+    TEST_ASSERT(STATUS_SUCCESS == metadata_encoding_set(meta, ENCODING));
+
+    /* the empty flag is now false. */
+    TEST_ASSERT(!metadata_empty_flag_get(meta));
+
+    /* clean up. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == resource_release(metadata_resource_handle(meta)));
+    TEST_ASSERT(
+        STATUS_SUCCESS == resource_release(allocator_resource_handle(alloc)));
+}
