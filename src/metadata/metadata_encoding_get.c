@@ -43,8 +43,7 @@ metadata_encoding_get(
     }
 
     /* get the data for this buffer. */
-    data =
-        (const char*)secure_buffer_data(&size, (secure_buffer*)&meta->encoding);
+    data = (const char*)secure_buffer_data(&size, meta->encoding);
 
     /* return the encoding to the caller. */
     *encoding = data;
