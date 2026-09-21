@@ -8,6 +8,7 @@
  */
 
 #include <rcpr/model_assert.h>
+#include <rcpr/vtable.h>
 #include <string.h>
 
 #include "secure_buffer_internal.h"
@@ -16,6 +17,10 @@ RCPR_IMPORT_allocator;
 RCPR_IMPORT_resource;
 
 RCPR_MODEL_STRUCT_TAG_GLOBAL_EXTERN(secure_buffer);
+
+RCPR_VTABLE resource_vtable secure_buffer_vtable = {
+    .release = &secure_buffer_resource_release
+};
 
 /**
  * \brief Create a secure buffer of the given size using the given allocator.
@@ -77,7 +82,7 @@ secure_buffer_create(
         tmp->RCPR_MODEL_STRUCT_TAG_REF(secure_buffer), secure_buffer);
 
     /* initialize resource. */
-    resource_init(&tmp->hdr, &secure_buffer_resource_release);
+    resource_init(&tmp->hdr, &secure_buffer_vtable);
     tmp->alloc = alloc;
     tmp->size = size;
     tmp->data = NULL;

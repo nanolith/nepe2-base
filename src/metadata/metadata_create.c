@@ -7,12 +7,17 @@
  * distribution for the license terms under which this software is distributed.
  */
 
+#include <rcpr/vtable.h>
 #include <string.h>
 
 #include "metadata_internal.h"
 
 RCPR_IMPORT_allocator;
 RCPR_IMPORT_resource;
+
+RCPR_VTABLE resource_vtable metadata_vtable = {
+    .release = &metadata_resource_release
+};
 
 /**
  * \brief Create an empty metadata instance using the given allocator.
@@ -74,7 +79,7 @@ metadata_create(
         tmp->RCPR_MODEL_STRUCT_TAG_REF(metadata), metadata);
 
     /* initialize resource. */
-    resource_init(&tmp->hdr, &metadata_resource_release);
+    resource_init(&tmp->hdr, &metadata_vtable);
     tmp->alloc = alloc;
 
     /* verify that this metadata instance is now valid. */
