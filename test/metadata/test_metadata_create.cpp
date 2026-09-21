@@ -436,3 +436,47 @@ TEST(metadata_legacy_flag_set_get)
     TEST_ASSERT(
         STATUS_SUCCESS == resource_release(allocator_resource_handle(alloc)));
 }
+
+/**
+ * We can set and get the kdf name.
+ */
+TEST(metadata_kdf_name_set_get)
+{
+    const char* kdf_name = "legacy";
+    allocator* alloc = nullptr;
+    metadata* meta = nullptr;
+    const char* kdf_name_ptr = nullptr;
+
+    /* we can successfully create a malloc allocator. */
+    TEST_ASSERT(STATUS_SUCCESS == malloc_allocator_create(&alloc));
+
+    /* we can successfully create a metadata instance. */
+    TEST_ASSERT(STATUS_SUCCESS == metadata_create(&meta, alloc));
+
+    /* if we attempt to get the kdf name before it is set, we get an error. */
+    TEST_EXPECT(
+        ERROR_METADATA_FIELD_NOT_SET
+            == metadata_kdf_name_get(&kdf_name_ptr, meta));
+
+    /* set the kdf name. */
+    TEST_ASSERT(
+        STATUS_SUCCESS
+            == metadata_kdf_name_set(meta, kdf_name));
+
+    /* we can now get the kdf name. */
+    TEST_ASSERT(
+        STATUS_SUCCESS
+            == metadata_kdf_name_get(&kdf_name_ptr, meta));
+
+    /* the kdf name pointer is set by the getter. */
+    TEST_ASSERT(nullptr != kdf_name_ptr);
+
+    /* the data matches. */
+    TEST_EXPECT(!strcmp(kdf_name_ptr, kdf_name));
+
+    /* clean up. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == resource_release(metadata_resource_handle(meta)));
+    TEST_ASSERT(
+        STATUS_SUCCESS == resource_release(allocator_resource_handle(alloc)));
+}
