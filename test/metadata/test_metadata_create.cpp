@@ -913,3 +913,155 @@ TEST(empty_flag_get)
     TEST_ASSERT(
         STATUS_SUCCESS == resource_release(allocator_resource_handle(alloc)));
 }
+
+/**
+ * Test that we can serialize metadata.
+ */
+TEST(metadata_serialize)
+{
+    const char* HASH_ID = "1234";
+    const uint32_t VERSION = 0x12345;
+    const uint64_t CREATION_DATE = 0x54321;
+    const uint64_t EXPIRATION_DATE = 0x54321;
+    const uint64_t REVOCATION_DATE = 0x54321;
+    const uint32_t PASSWORD_LENGTH = 17;
+    const uint32_t GENERATION = 2;
+    const bool LEGACY = false;
+    const char* KDF_ALGORITHM = "legacy";
+    const char* ENCODING = "SYMBOLIC-base64";
+
+    allocator* alloc = nullptr;
+    metadata* meta = nullptr;
+    metadata* meta2 = nullptr;
+    secure_buffer* serial_buffer = nullptr;
+
+    /* we can successfully create a malloc allocator. */
+    TEST_ASSERT(STATUS_SUCCESS == malloc_allocator_create(&alloc));
+
+    /* we can successfully create a metadata instance. */
+    TEST_ASSERT(STATUS_SUCCESS == metadata_create(&meta, alloc));
+
+    /* Set the hash id. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == metadata_hash_id_set(meta, HASH_ID, strlen(HASH_ID)));
+
+    /* Set the version. */
+    TEST_ASSERT(STATUS_SUCCESS == metadata_version_set(meta, VERSION));
+
+    /* set the creation date. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == metadata_creation_date_set(meta, CREATION_DATE));
+
+    /* set the expiration date. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == metadata_expiration_date_set(meta, EXPIRATION_DATE));
+
+    /* set the revocation date. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == metadata_revocation_date_set(meta, REVOCATION_DATE));
+
+    /* set the password length. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == metadata_password_length_set(meta, PASSWORD_LENGTH));
+
+    /* set the generation. */
+    TEST_ASSERT(STATUS_SUCCESS == metadata_generation_set(meta, GENERATION));
+
+    /* set the legacy flag. */
+    TEST_ASSERT(STATUS_SUCCESS == metadata_legacy_flag_set(meta, LEGACY));
+
+    /* set the KDF algorithm. */
+    TEST_ASSERT(STATUS_SUCCESS == metadata_kdf_name_set(meta, KDF_ALGORITHM));
+
+    /* set the encoding. */
+    TEST_ASSERT(STATUS_SUCCESS == metadata_encoding_set(meta, ENCODING));
+
+    /* this instance is not empty. */
+    TEST_ASSERT(!metadata_empty_flag_get(meta));
+
+    /* Test that we can write this metadata to a secure buffer. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == metadata_to_buffer(&serial_buffer, alloc, meta));
+    TEST_ASSERT(nullptr != serial_buffer);
+
+    /* Test that we can read this metadata back from a secure buffer. */
+    TEST_ASSERT(
+        STATUS_SUCCESS == metadata_from_buffer(&meta2, alloc, serial_buffer));
+    TEST_ASSERT(nullptr != meta2);
+
+    /* the new record is not empty. */
+    TEST_ASSERT(!metadata_empty_flag_get(meta2));
+
+    /* the hash id should have transferred. */
+    const void* new_hash_id; size_t new_hash_id_size;
+    TEST_ASSERT(
+        STATUS_SUCCESS
+            == metadata_hash_id_get(&new_hash_id, &new_hash_id_size, meta2));
+    TEST_ASSERT(new_hash_id_size == strlen(HASH_ID));
+    TEST_ASSERT(!memcmp(HASH_ID, new_hash_id, new_hash_id_size));
+
+    /* the version should have transferred. */
+    uint32_t new_version;
+    TEST_ASSERT(STATUS_SUCCESS == metadata_version_get(&new_version, meta2));
+    TEST_ASSERT(VERSION == new_version);
+
+    /* the creation date should have transferred. */
+    uint64_t new_creation_date;
+    TEST_ASSERT(
+        STATUS_SUCCESS
+            == metadata_creation_date_get(&new_creation_date, meta2));
+    TEST_ASSERT(CREATION_DATE == new_creation_date);
+
+    /* the expiration date should have transferred. */
+    uint64_t new_expiration_date;
+    TEST_ASSERT(
+        STATUS_SUCCESS
+            == metadata_expiration_date_get(&new_expiration_date, meta2));
+    TEST_ASSERT(EXPIRATION_DATE == new_expiration_date);
+
+    /* the revocation date should have transferred. */
+    uint64_t new_revocation_date;
+    TEST_ASSERT(
+        STATUS_SUCCESS
+            == metadata_revocation_date_get(&new_revocation_date, meta2));
+    TEST_ASSERT(REVOCATION_DATE == new_revocation_date);
+
+    /* the password length should have transferred. */
+    uint32_t new_password_length;
+    TEST_ASSERT(
+        STATUS_SUCCESS
+            == metadata_password_length_get(&new_password_length, meta2));
+    TEST_ASSERT(PASSWORD_LENGTH == new_password_length);
+
+    /* the generation should have transferred. */
+    uint32_t new_generation;
+    TEST_ASSERT(
+        STATUS_SUCCESS == metadata_generation_get(&new_generation, meta2));
+    TEST_ASSERT(GENERATION == new_generation);
+
+    /* the legacy flag should have transferred. */
+    bool new_legacy;
+    TEST_ASSERT(STATUS_SUCCESS == metadata_legacy_flag_get(&new_legacy, meta2));
+    TEST_ASSERT(LEGACY == new_legacy);
+
+    /* the kdf name should have transferred. */
+    const char* new_kdf_name;
+    TEST_ASSERT(STATUS_SUCCESS == metadata_kdf_name_get(&new_kdf_name, meta2));
+    TEST_ASSERT(!strcmp(KDF_ALGORITHM, new_kdf_name));
+
+    /* the encoding should have transferred. */
+    const char* new_encoding;
+    TEST_ASSERT(STATUS_SUCCESS == metadata_encoding_get(&new_encoding, meta2));
+    TEST_ASSERT(!strcmp(ENCODING, new_encoding));
+
+    /* clean up. */
+    TEST_ASSERT(
+        STATUS_SUCCESS
+            == resource_release(secure_buffer_resource_handle(serial_buffer)));
+    TEST_ASSERT(
+        STATUS_SUCCESS == resource_release(metadata_resource_handle(meta2)));
+    TEST_ASSERT(
+        STATUS_SUCCESS == resource_release(metadata_resource_handle(meta)));
+    TEST_ASSERT(
+        STATUS_SUCCESS == resource_release(allocator_resource_handle(alloc)));
+}
