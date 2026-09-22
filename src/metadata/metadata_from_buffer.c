@@ -298,7 +298,7 @@ metadata_from_buffer(
     }
 
     /* verify that this metadata instance is now valid. */
-    if (!metadata_empty_flag_get(tmp))
+    if (metadata_empty_flag_get(tmp))
     {
         retval = ERROR_METADATA_FIELD_NOT_SET;
         goto cleanup_tmp;
