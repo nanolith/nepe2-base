@@ -51,6 +51,46 @@ typedef status (*transformer_fn)(
     const secure_buffer* master, const secure_buffer* session,
     const metadata* meta);
 
+/******************************************************************************/
+/* Start of constructors.                                                     */
+/******************************************************************************/
+
+/**
+ * \brief Create a transformer instance with the given name and transformer
+ * function.
+ *
+ * \param xform         Pointer to the transformer pointer to be set to the
+ *                      created transformer instance on success.
+ * \param alloc         The allocator to use for this operation.
+ * \param name          The name of this transformer.
+ * \param xform_fn      The transformer function to use for this instance.
+ *
+ * \note This transformer instance is a \ref resource that must be released by
+ * calling \ref resource_release on its resource handle when it is no longer
+ * needed by the caller. The resource handle can be accessed by calling \ref
+ * transformer_resource_handle on this transformer instance.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ *
+ * \pre
+ *      - \p xform must not reference a valid \ref transformer instance and
+ *        must not be NULL.
+ *      - \p alloc must reference a valid \ref allocator and must not be NULL.
+ *      - \p name must be a valid string and must not be NULL.
+ *      - \p xform_fn must be a valid function and must not be NULL.
+ * \post
+ *      - On success, \p xform is set to a pointer to a valid
+ *        \ref transformer instance, which is a \ref resource owned by the
+ *        caller that must be released when no longer needed.
+ *      - On failure, \p xform is set to NULL and an error status is returned.
+ */
+status FN_DECL_MUST_CHECK
+transformer_create(
+    transformer** xform, RCPR_SYM(allocator)* alloc, const char* name,
+    transformer_fn* xform_fn);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
