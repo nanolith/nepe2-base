@@ -1,10 +1,9 @@
 /**
- * \file nepe2/secure_buffer.h
+ * \file nepe2/metadata.h
  *
- * \brief A secure buffer is a fixed size buffer that is erased when its
- * resource handle is released.
+ * \brief The metadata type includes data used to shape a generated password.
  *
- * \copyright 2023 Justin Handville.  Please see License.txt in this
+ * \copyright 2023-2026 Justin Handville.  Please see License.txt in this
  * distribution for the license terms under which this software is distributed.
  */
 
