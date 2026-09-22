@@ -204,7 +204,7 @@ metadata_from_buffer(
     }
 
     /* read the legacy flag. */
-    uint32_t legacy_flag = *bptr;
+    uint8_t legacy_flag = *bptr;
     bptr += sizeof(legacy_flag);
     buffer_size -= sizeof(legacy_flag);
 
