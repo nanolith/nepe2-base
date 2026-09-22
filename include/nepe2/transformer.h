@@ -91,6 +91,23 @@ transformer_create(
     transformer** xform, RCPR_SYM(allocator)* alloc, const char* name,
     transformer_fn* xform_fn);
 
+/******************************************************************************/
+/* Start of accessors.                                                        */
+/******************************************************************************/
+
+/**
+ * \brief Given a \ref transformer instance, return the resource handle for this
+ * \ref transformer instance.
+ *
+ * \param xform         The \ref transformer instance from which the resource
+ *                      handle is returned.
+ *
+ * \returns the resource handle for this \ref transformer instance.
+ */
+RCPR_SYM(resource)*
+transformer_resource_handle(
+    transformer* xform);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
