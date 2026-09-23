@@ -25,6 +25,17 @@ struct transformer
     transformer_fn xform_fn;
 };
 
+/**
+ * \brief Release a \ref transformer instance.
+ *
+ * \param r             The \ref transformer \ref resource to release.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status transformer_resource_release(RCPR_SYM(resource)* r);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
