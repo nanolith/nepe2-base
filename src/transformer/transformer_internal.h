@@ -12,6 +12,7 @@
 #include <nepe2/transformer.h>
 #include <rcpr/rbtree.h>
 #include <rcpr/resource/protected.h>
+#include <rcpr/thread.h>
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
@@ -31,6 +32,7 @@ struct transformer_registry
     RCPR_SYM(resource) hdr;
     RCPR_SYM(allocator)* alloc;
     RCPR_SYM(rbtree)* dict;
+    RCPR_SYM(thread_mutex)* mutex;
 };
 
 /**
