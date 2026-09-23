@@ -89,7 +89,7 @@ typedef status (*transformer_fn)(
 status FN_DECL_MUST_CHECK
 transformer_create(
     transformer** xform, RCPR_SYM(allocator)* alloc, const char* name,
-    transformer_fn* xform_fn);
+    transformer_fn xform_fn);
 
 /******************************************************************************/
 /* Start of accessors.                                                        */
