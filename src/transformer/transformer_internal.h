@@ -10,6 +10,7 @@
 #pragma once
 
 #include <nepe2/transformer.h>
+#include <rcpr/rbtree.h>
 #include <rcpr/resource/protected.h>
 
 /* C++ compatibility. */
@@ -23,6 +24,13 @@ struct transformer
     RCPR_SYM(allocator)* alloc;
     char* name;
     transformer_fn xform_fn;
+};
+
+struct transformer_registry
+{
+    RCPR_SYM(resource) hdr;
+    RCPR_SYM(allocator)* alloc;
+    RCPR_SYM(rbtree)* dict;
 };
 
 /**
