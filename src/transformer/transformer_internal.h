@@ -21,7 +21,7 @@ struct transformer
 {
     RCPR_SYM(resource) hdr;
     RCPR_SYM(allocator)* alloc;
-    const char* name;
+    char* name;
     transformer_fn xform_fn;
 };
 
