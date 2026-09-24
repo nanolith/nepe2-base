@@ -97,24 +97,6 @@ transformer_create(
     transformer** xform, RCPR_SYM(allocator)* alloc, const char* name,
     transformer_fn xform_fn);
 
-/**
- * \brief Get the singleton transformer registry implementation.
- *
- * \param reg           Pointer to the \ref transformer_registry pointer to be
- *                      set with the singleton instance on success.
- *
- * \note This method optionally allocates a registry instance. This instance
- * exists as a global. This allocation occurs only once, on a single thread. All
- * other threads will receive this single copy.
- *
- * \returns a status code indicating success or failure.
- *      - STATUS_SUCCESS on success.
- *      - a non-zero error code on failure.
- */
-status FN_DECL_MUST_CHECK
-transformer_registry_singleton_get(
-    transformer_registry** reg);
-
 /******************************************************************************/
 /* Start of accessors.                                                        */
 /******************************************************************************/
