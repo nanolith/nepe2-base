@@ -28,6 +28,12 @@ struct transformer
     transformer_fn xform_fn;
 };
 
+/**
+ * \brief The transformer registry allows transformers to be registered and
+ * queried by name.
+ */
+typedef struct transformer_registry transformer_registry;
+
 struct transformer_registry
 {
     RCPR_SYM(resource) hdr;

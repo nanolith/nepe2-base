@@ -31,12 +31,6 @@ extern "C" {
 typedef struct transformer transformer;
 
 /**
- * \brief The transformer registry allows transformers to be registered and
- * queried by name.
- */
-typedef struct transformer_registry transformer_registry;
-
-/**
  * \brief A transformer function takes an allocator, a master passphrase, a
  * session passphrase, and metadata to produce a secure buffer containing a
  * raw generated password.
