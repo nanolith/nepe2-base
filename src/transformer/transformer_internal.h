@@ -62,6 +62,17 @@ status transformer_resource_release(RCPR_SYM(resource)* r);
 RCPR_SYM(rcpr_comparison_result) transformer_dict_compare(
     void* context, const void* lhs, const void* rhs);
 
+/**
+ * \brief Given a \ref transformer \ref resource, return the name as a key.
+ *
+ * \param context       Unused.
+ * \param r             The \ref transformer \ref resource.
+ *
+ * \returns the name key for this resource.
+ */
+const void* transformer_dict_key(
+    void* context, const RCPR_SYM(resource)* r);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
