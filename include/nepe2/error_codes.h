@@ -13,3 +13,4 @@
 #define ERROR_METADATA_BAD_ENCODING_LENGTH                              0x3402
 #define ERROR_METADATA_INVALID_BUFFER_SIZE                              0x3403
 #define ERROR_METADATA_UNKNOWN_SERIAL_VERSION                           0x3404
+#define ERROR_TRANSFORMER_REGISTRY_CANNOT_BE_RELEASED                   0x3405
