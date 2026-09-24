@@ -147,6 +147,23 @@ status FN_DECL_MUST_CHECK
 transformer_registry_register(
     transformer* xform);
 
+/**
+ * \brief Look up a transformer by name from the registry.
+ *
+ * \note This transformer is owned by the registry.
+ *
+ * \param xform         Pointer to the \ref transformer pointer to be set with
+ *                      the transformer if found.
+ * \param name          The name of the transformer to look up.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status FN_DECL_MUST_CHECK
+transformer_registry_lookup(
+    transformer** xform, const char* name);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
