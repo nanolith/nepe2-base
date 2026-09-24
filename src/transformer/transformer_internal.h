@@ -10,6 +10,7 @@
 #pragma once
 
 #include <nepe2/transformer.h>
+#include <rcpr/compare.h>
 #include <rcpr/rbtree.h>
 #include <rcpr/resource/protected.h>
 #include <rcpr/thread.h>
@@ -45,6 +46,21 @@ struct transformer_registry
  *      - a non-zero error code on failure.
  */
 status transformer_resource_release(RCPR_SYM(resource)* r);
+
+/**
+ * \brief Compare two transformer names.
+ *
+ * \param context       Unused.
+ * \param lhs           The left-hand side of the comparison.
+ * \param rhs           The right-hand side of the comparison.
+ *
+ * \returns an integer value representing the comparison result.
+ *      - RCPR_COMPARE_LT if \p lhs &lt; \p rhs.
+ *      - RCPR_COMPARE_EQ if \p lhs == \p rhs.
+ *      - RCPR_COMPARE_GT if \p lhs &gt; \p rhs.
+ */
+RCPR_SYM(rcpr_comparison_result) transformer_dict_compare(
+    void* context, const void* lhs, const void* rhs);
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
