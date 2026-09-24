@@ -48,6 +48,17 @@ struct transformer_registry
 status transformer_resource_release(RCPR_SYM(resource)* r);
 
 /**
+ * \brief Release a \ref transformer_registry instance.
+ *
+ * \param r             The \ref transformer_registry \ref resource to release.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status transformer_registry_resource_release(RCPR_SYM(resource)* r);
+
+/**
  * \brief Compare two transformer names.
  *
  * \param context       Unused.
