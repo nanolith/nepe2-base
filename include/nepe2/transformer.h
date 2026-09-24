@@ -132,6 +132,21 @@ RCPR_SYM(resource)*
 transformer_resource_handle(
     transformer* xform);
 
+/**
+ * \brief Register a transformer with the registry.
+ *
+ * \note The registry takes ownership of this transformer instance on success.
+ *
+ * \param xform         The \ref transformer instance to register.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status FN_DECL_MUST_CHECK
+transformer_registry_register(
+    transformer* xform);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
