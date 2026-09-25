@@ -31,6 +31,12 @@ extern "C" {
 typedef struct transformer transformer;
 
 /**
+ * \brief The TRANSFORMER_REGISTER macro is a dummy annotation used by the build
+ * script to automatically register a transformer implementation.
+ */
+#define TRANSFORMER_REGISTER(x, y)
+
+/**
  * \brief A transformer function takes an allocator, a master passphrase, a
  * session passphrase, and metadata to produce a secure buffer containing a
  * raw generated password.
