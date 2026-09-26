@@ -21,6 +21,8 @@ find_package(PkgConfig REQUIRED)
 pkg_search_module(minunit REQUIRED IMPORTED_TARGET minunit)
 #rcpr package
 pkg_search_module(rcpr REQUIRED IMPORTED_TARGET rcpr)
+#openssl / libressl package
+pkg_search_module(crypto REQUIRED IMPORTED_TARGET libcrypto)
 #threads package
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads)
@@ -56,7 +58,7 @@ TARGET_COMPILE_OPTIONS(
     nepe2base PRIVATE -fPIC -O2 ${rcpr_CFLAGS}
     -Wall -Werror -Wextra -Wpedantic -Wno-unused-command-line-argument)
 TARGET_LINK_LIBRARIES(
-    nepe2base PRIVATE ${rcpr_LDFLAGS})
+    nepe2base PRIVATE ${rcpr_LDFLAGS} PkgConfig::crypto)
 
 ADD_LIBRARY(nepe2base-${CMAKE_PROJECT_VERSION} SHARED
     ${NEPE2BASE_SOURCES})
@@ -65,7 +67,8 @@ TARGET_COMPILE_OPTIONS(
     -Wall -Werror -Wextra -Wpedantic -Wno-unused-command-line-argument
     ${USE_EXTERN_ASSEMBLER})
 TARGET_LINK_LIBRARIES(
-    nepe2base-${CMAKE_PROJECT_VERSION} PRIVATE ${rcpr_LDFLAGS})
+    nepe2base-${CMAKE_PROJECT_VERSION}
+    PRIVATE ${rcpr_LDFLAGS} PkgConfig::crypto)
 
 ADD_EXECUTABLE(testnepe2base
     ${NEPE2BASE_SOURCES} ${NEPE2BASE_TEST_SOURCES})
@@ -75,7 +78,9 @@ TARGET_COMPILE_OPTIONS(
                      -Wall -Werror -Wextra -Wpedantic
                      -Wno-unused-command-line-argument ${USE_EXTERN_ASSEMBLER})
 TARGET_LINK_LIBRARIES(
-    testnepe2base PRIVATE -g -O0 --coverage ${minunit_LDFLAGS} ${rcpr_LDFLAGS})
+    testnepe2base
+    PRIVATE -g -O0 --coverage ${minunit_LDFLAGS} ${rcpr_LDFLAGS}
+            PkgConfig::crypto)
 set_source_files_properties(
     ${NEPE2BASE_TEST_SOURCES} PROPERTIES
     COMPILE_FLAGS "${STD_CXX_20} ${USE_INTERN_ASSEMBLER}")
