@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <nepe2/macro_tricks.h>
 #include <nepe2/metadata.h>
 #include <nepe2/secure_buffer.h>
 #include <rcpr/allocator.h>
@@ -34,7 +35,7 @@ typedef struct transformer transformer;
  * \brief The TRANSFORMER_REGISTER macro is a dummy annotation used by the build
  * script to automatically register a transformer implementation.
  */
-#define TRANSFORMER_REGISTER(x, y)
+#define TRANSFORMER_REGISTER(x, y) REQUIRE_SEMICOLON_HERE
 
 /**
  * \brief A transformer function takes an allocator, a master passphrase, a
