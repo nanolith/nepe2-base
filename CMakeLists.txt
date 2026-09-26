@@ -58,7 +58,7 @@ TARGET_COMPILE_OPTIONS(
     nepe2base PRIVATE -fPIC -O2 ${rcpr_CFLAGS}
     -Wall -Werror -Wextra -Wpedantic -Wno-unused-command-line-argument)
 TARGET_LINK_LIBRARIES(
-    nepe2base PRIVATE ${rcpr_LDFLAGS} PkgConfig::crypto)
+    nepe2base PRIVATE PkgConfig::rcpr PkgConfig::crypto)
 
 ADD_LIBRARY(nepe2base-${CMAKE_PROJECT_VERSION} SHARED
     ${NEPE2BASE_SOURCES})
@@ -68,7 +68,7 @@ TARGET_COMPILE_OPTIONS(
     ${USE_EXTERN_ASSEMBLER})
 TARGET_LINK_LIBRARIES(
     nepe2base-${CMAKE_PROJECT_VERSION}
-    PRIVATE ${rcpr_LDFLAGS} PkgConfig::crypto)
+    PRIVATE PkgConfig::rcpr PkgConfig::crypto)
 
 ADD_EXECUTABLE(testnepe2base
     ${NEPE2BASE_SOURCES} ${NEPE2BASE_TEST_SOURCES})
@@ -79,7 +79,7 @@ TARGET_COMPILE_OPTIONS(
                      -Wno-unused-command-line-argument ${USE_EXTERN_ASSEMBLER})
 TARGET_LINK_LIBRARIES(
     testnepe2base
-    PRIVATE -g -O0 --coverage ${minunit_LDFLAGS} ${rcpr_LDFLAGS}
+    PRIVATE -g -O0 --coverage PkgConfig::minunit PkgConfig::rcpr
             PkgConfig::crypto)
 set_source_files_properties(
     ${NEPE2BASE_TEST_SOURCES} PROPERTIES
