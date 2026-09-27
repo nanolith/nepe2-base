@@ -146,6 +146,23 @@ status FN_DECL_MUST_CHECK
 mapper_registry_register_inplace(
     const char* name, mapper_fn map_fn);
 
+/**
+ * \brief Look up a mapper by name from the registry.
+ *
+ * \note This mapper is owned by the registry.
+ *
+ * \param m             Pointer to the \ref mapper pointer to be set with
+ *                      the mapper if found.
+ * \param name          The name of the mapper to look up.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status FN_DECL_MUST_CHECK
+mapper_registry_lookup(
+    mapper** m, const char* name);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
