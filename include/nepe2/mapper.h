@@ -118,6 +118,20 @@ mapper_create(
 RCPR_SYM(resource)*
 mapper_resource_handle(mapper* m);
 
+/**
+ * \brief Register a mapper with the registry.
+ *
+ * \note The registry takes ownership of this mapper instance on success.
+ *
+ * \param m             The \ref mapper instance to register.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status FN_DECL_MUST_CHECK
+mapper_registry_register(mapper* m);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
