@@ -23,6 +23,17 @@ struct mapper
     char* name;
 };
 
+/**
+ * \brief Release a \ref mapper instance.
+ *
+ * \param r             The \ref mapper \ref resource to release.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status mapper_resource_release(RCPR_SYM(resource)* r);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
