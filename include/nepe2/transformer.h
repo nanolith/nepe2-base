@@ -141,6 +141,20 @@ transformer_registry_register(
     transformer* xform);
 
 /**
+ * \brief Register a transformer in place, using the registry's allocator.
+ *
+ * \param name          The name of this transformer.
+ * \param xform_fn      The transformer function to use for this transformer.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status FN_DECL_MUST_CHECK
+transformer_registry_register_inplace(
+    const char* name, transformer_fn xform_fn);
+
+/**
  * \brief Look up a transformer by name from the registry.
  *
  * \note This transformer is owned by the registry.
