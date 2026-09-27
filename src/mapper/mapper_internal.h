@@ -25,6 +25,12 @@ struct mapper
 };
 
 /**
+ * \brief The mapper registry allows mappers to be registered and
+ * queried by name.
+ */
+typedef struct mapper_registry mapper_registry;
+
+/**
  * \brief Release a \ref mapper instance.
  *
  * \param r             The \ref mapper \ref resource to release.
