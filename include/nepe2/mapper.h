@@ -64,6 +64,44 @@ typedef status (*mapper_fn)(
  */
 status FN_DECL_MUST_CHECK mappers_register();
 
+/******************************************************************************/
+/* Start of constructors.                                                     */
+/******************************************************************************/
+
+/**
+ * \brief Create a mapper instance with the given name and mapping function.
+ *
+ * \param m             Pointer to the mapper pointer to be set to the
+ *                      created mapper instance on success.
+ * \param alloc         The allocator to use for this operation.
+ * \param name          The name of this mapper.
+ * \param map_fn        The mapper function to use for this instance.
+ *
+ * \note This mapper instance is a \ref resource that must be released by
+ * calling \ref resource_release on its resource handle when it is no longer
+ * needed by the caller. The resource handle can be accessed by calling \ref
+ * mapper_resource_handle on this mapper instance.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ *
+ * \pre
+ *      - \p m must not reference a valid \ref mapper instance and
+ *        must not be NULL.
+ *      - \p alloc must reference a valid \ref allocator and must not be NULL.
+ *      - \p name must be a valid string and must not be NULL.
+ *      - \p map_fn must be a valid function and must not be NULL.
+ * \post
+ *      - On success, \p m is set to a pointer to a valid \ref mapper instance,
+ *        which is a \ref resource owned by the caller that must be released
+ *        when no longer needed.
+ *      - On failure, \p m is set to NULL and an error status is returned.
+ */
+status FN_DECL_MUST_CHECK
+mapper_create(
+    mapper** m, RCPR_SYM(allocator)* alloc, const char* name, mapper_fn map_fn);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
