@@ -51,6 +51,24 @@ struct mapper_registry
  */
 status mapper_resource_release(RCPR_SYM(resource)* r);
 
+/**
+ * \brief Get the singleton mapper registry implementation.
+ *
+ * \param reg           Pointer to the \ref mapper_registry pointer to be set
+ *                      with the singleton instance on success.
+ *
+ * \note This method optionally allocates a registry instance. This instance
+ * exists as a global. This allocation occurs only once, on a single thread. All
+ * other threads will receive this single copy.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status FN_DECL_MUST_CHECK
+mapper_registry_singleton_get(
+    mapper_registry** reg);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
