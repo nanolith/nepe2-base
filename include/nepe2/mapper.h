@@ -132,6 +132,20 @@ mapper_resource_handle(mapper* m);
 status FN_DECL_MUST_CHECK
 mapper_registry_register(mapper* m);
 
+/**
+ * \brief Register a mapper in place, using the registry's allocator.
+ *
+ * \param name          The name of this mapper.
+ * \param map_fn        The mapper function to use for this mapper.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status FN_DECL_MUST_CHECK
+mapper_registry_register_inplace(
+    const char* name, mapper_fn map_fn);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
