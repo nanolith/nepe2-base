@@ -10,6 +10,8 @@
 #pragma once
 
 #include <nepe2/mapper.h>
+#include <rcpr/rbtree.h>
+#include <rcpr/thread.h>
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
@@ -29,6 +31,14 @@ struct mapper
  * queried by name.
  */
 typedef struct mapper_registry mapper_registry;
+
+struct mapper_registry
+{
+    RCPR_SYM(resource) hdr;
+    RCPR_SYM(allocator)* alloc;
+    RCPR_SYM(rbtree)* dict;
+    RCPR_SYM(thread_mutex)* mutex;
+};
 
 /**
  * \brief Release a \ref mapper instance.
