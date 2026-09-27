@@ -102,6 +102,22 @@ status FN_DECL_MUST_CHECK
 mapper_create(
     mapper** m, RCPR_SYM(allocator)* alloc, const char* name, mapper_fn map_fn);
 
+/******************************************************************************/
+/* Start of accessors.                                                        */
+/******************************************************************************/
+
+/**
+ * \brief Given a \ref mapper instance, return the resource handle for this
+ * \ref mapper instance.
+ *
+ * \param m             The \ref mapper instance from which the resource handle
+ *                      is returned.
+ *
+ * \returns the resource handle for this \ref mapper instance.
+ */
+RCPR_SYM(resource)*
+mapper_resource_handle(mapper* m);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
