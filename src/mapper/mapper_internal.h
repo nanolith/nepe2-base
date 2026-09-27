@@ -21,6 +21,7 @@ struct mapper
     RCPR_SYM(resource) hdr;
     RCPR_SYM(allocator)* alloc;
     char* name;
+    mapper_fn map_fn;
 };
 
 /**
