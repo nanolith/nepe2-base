@@ -31,6 +31,12 @@ extern "C" {
 typedef struct mapper mapper;
 
 /**
+ * \brief The MAPPER_REGISTER macro is a dummy annotation used by the build
+ * script to automatically register a mapper implementation.
+ */
+#define MAPPER_REGISTER(x, y) REQUIRE_SEMICOLON_HERE
+
+/**
  * \brief A mapper function takes an allocator and a raw generated password to
  * produce a secure buffer containing a password that has been mapped to a given
  * translation set or encoding.
