@@ -26,7 +26,7 @@ static status transformer_registry_release(transformer_registry* reg);
 static _Atomic(transformer_registry*) registry = NULL;
 
 RCPR_VTABLE resource_vtable transformer_registry_vtable = {
-    .release = &transformer_resource_release
+    .release = &transformer_registry_resource_release
 };
 
 /**
