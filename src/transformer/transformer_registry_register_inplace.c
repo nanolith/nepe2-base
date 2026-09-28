@@ -91,5 +91,4 @@ cleanup_lock:
 
 done:
     return retval;
-
 }
