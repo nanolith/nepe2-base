@@ -89,6 +89,17 @@ void*
 secure_buffer_data(
     size_t* size, secure_buffer* buffer);
 
+/**
+ * \brief Truncate a \ref secure_buffer instance to the given size.
+ *
+ * \note if this size is larger than the buffer size, this operation does
+ * nothing.
+ *
+ * \param buffer        The buffer to truncate.
+ * \param size          The new truncated size.
+ */
+void secure_buffer_truncate(secure_buffer* buffer, size_t size);
+
 /******************************************************************************/
 /* Start of model checking properties.                                        */
 /******************************************************************************/
