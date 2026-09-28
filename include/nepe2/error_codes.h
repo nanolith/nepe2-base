@@ -18,3 +18,4 @@
 #define ERROR_TRANSFORMER_REGISTRY_NOT_FOUND                            0x3407
 #define ERROR_MAPPER_REGISTRY_CANNOT_BE_RELEASED                        0x3408
 #define ERROR_MAPPER_REGISTRY_NAME_ALREADY_REGISTERED                   0x3409
+#define ERROR_MAPPER_REGISTRY_NOT_FOUND                                 0x340a
