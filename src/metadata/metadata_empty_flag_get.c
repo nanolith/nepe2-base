@@ -35,5 +35,6 @@ metadata_empty_flag_get(
       || !meta->expiration_date_populated
       || !meta->password_length_populated
       || !meta->generation_populated
+      || !meta->iterations_populated
       || !meta->legacy_flag_populated;
 }
