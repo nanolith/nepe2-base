@@ -633,6 +633,28 @@ metadata_iterations_set(
     metadata* meta, uint64_t iterations);
 
 /**
+ * \brief Get the iterations for a given \ref metadata instance.
+ *
+ * \param iterations        Pointer to be set to the iterations on success.
+ * \param meta              The metadata instance for this operation.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - ERROR_METADATA_FIELD_NOT_SET if the method fails because this field
+ *        has not been set.
+ *
+ * \pre
+ *      - \p iterations must be a valid pointer.
+ *      - \p meta must reference a valid \ref metadata instance.
+ * \post
+ *      - On success, \p iterations is set to the iterations of this instance.
+ *      - On failure, \p iterations is unchanged.
+ */
+status FN_DECL_MUST_CHECK
+metadata_iterations_get(
+    uint64_t* iterations, const metadata* meta);
+
+/**
  * \brief Serialize a metadata record into a buffer.
  *
  * \param buffer        The pointer to the buffer pointer to hold the serialized
