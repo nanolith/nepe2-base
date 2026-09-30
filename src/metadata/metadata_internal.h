@@ -41,6 +41,7 @@ struct metadata
     bool legacy_flag_populated;
     bool legacy_flag;
     uint64_t iterations;
+    bool iterations_populated;
 };
 
 /**
