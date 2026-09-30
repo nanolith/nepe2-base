@@ -22,7 +22,7 @@ pkg_search_module(minunit REQUIRED IMPORTED_TARGET minunit)
 #rcpr package
 pkg_search_module(rcpr REQUIRED IMPORTED_TARGET rcpr>=0.4.4)
 #openssl / libressl package
-pkg_search_module(crypto REQUIRED IMPORTED_TARGET libcrypto)
+pkg_search_module(crypto REQUIRED IMPORTED_TARGET libcrypto>=2.0.0)
 #threads package
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads)
