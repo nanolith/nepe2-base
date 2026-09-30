@@ -1087,6 +1087,12 @@ TEST(metadata_serialize)
         STATUS_SUCCESS == metadata_generation_get(&new_generation, meta2));
     TEST_ASSERT(GENERATION == new_generation);
 
+    /* iterations should have transferred. */
+    uint64_t new_iterations;
+    TEST_ASSERT(
+        STATUS_SUCCESS == metadata_iterations_get(&new_iterations, meta2));
+    TEST_ASSERT(ITERATIONS == new_iterations);
+
     /* the legacy flag should have transferred. */
     bool new_legacy;
     TEST_ASSERT(STATUS_SUCCESS == metadata_legacy_flag_get(&new_legacy, meta2));
