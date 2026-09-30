@@ -87,6 +87,7 @@ metadata_from_buffer(
       + sizeof(tmp->expiration_date)
       + sizeof(tmp->password_length)
       + sizeof(tmp->generation)
+      + sizeof(tmp->iterations)
       + sizeof(uint8_t)   /* legacy_flag. */
       + sizeof(uint32_t)  /* hash_id_size */
       + sizeof(uint32_t)  /* kdf_name_size. */
@@ -198,6 +199,20 @@ metadata_from_buffer(
     /* set the generation. */
     retval =
         metadata_generation_set(tmp, socket_utility_ntoh32(net_generation));
+    if (STATUS_SUCCESS != retval)
+    {
+        goto cleanup_tmp;
+    }
+
+    /* read the iterations. */
+    uint64_t net_iterations;
+    memcpy(&net_iterations, bptr, sizeof(net_iterations));
+    bptr += sizeof(net_iterations);
+    buffer_size -= sizeof(net_iterations);
+
+    /* set iterations. */
+    retval =
+        metadata_iterations_set(tmp, socket_utility_ntoh64(net_iterations));
     if (STATUS_SUCCESS != retval)
     {
         goto cleanup_tmp;

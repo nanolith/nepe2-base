@@ -75,6 +75,7 @@ metadata_to_buffer(
       + sizeof(meta->expiration_date)
       + sizeof(meta->password_length)
       + sizeof(meta->generation)
+      + sizeof(meta->iterations)
       + sizeof(uint8_t) /* legacy_flag. */
       + sizeof(uint32_t) /* hash_id_size */
       + sizeof(uint32_t) /* kdf_name_size. */
@@ -133,6 +134,11 @@ metadata_to_buffer(
     uint32_t net_generation = socket_utility_hton32(meta->generation);
     memcpy(bptr, &net_generation, sizeof(net_generation));
     bptr += sizeof(net_generation);
+
+    /* write the iterations. */
+    uint64_t net_iterations = socket_utility_hton64(meta->iterations);
+    memcpy(bptr, &net_iterations, sizeof(net_iterations));
+    bptr += sizeof(net_iterations);
 
     /* write the legacy flag. */
     uint8_t net_legacy_flag = meta->legacy_flag ? 1 : 0;
