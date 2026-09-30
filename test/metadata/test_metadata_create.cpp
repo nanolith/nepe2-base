@@ -866,6 +866,7 @@ TEST(empty_flag_get)
     const uint64_t REVOCATION_DATE = 0x54321;
     const uint32_t PASSWORD_LENGTH = 17;
     const uint32_t GENERATION = 2;
+    const uint64_t ITERATIONS = 50000;
     const bool LEGACY = false;
     const char* KDF_ALGORITHM = "legacy";
     const char* ENCODING = "SYMBOLIC-base64";
@@ -943,6 +944,9 @@ TEST(empty_flag_get)
 
     /* set the encoding. */
     TEST_ASSERT(STATUS_SUCCESS == metadata_encoding_set(meta, ENCODING));
+
+    /* set iterations. */
+    TEST_ASSERT(STATUS_SUCCESS == metadata_iterations_set(meta, ITERATIONS));
 
     /* the empty flag is now false. */
     TEST_ASSERT(!metadata_empty_flag_get(meta));
