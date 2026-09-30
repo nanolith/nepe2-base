@@ -38,7 +38,7 @@ TRANSFORMER_REGISTER("legacy", &legacy_transformer_function);
  * \param alloc     The allocator to use for this operation.
  * \param master    The master passphrase to use for this operation.
  * \param session   The session passphrase to use for this operation.
- * \param meta      The metadata to use for this operation.
+ * \param meta      The metadata to use for this operation, ignored if NULL.
  *
  * \returns a status code indicating success or failure.
  *      - STATUS_SUCCESS on success.
@@ -52,7 +52,7 @@ status legacy_transformer_function(
     status retval, release_retval;
     secure_buffer* master_hash;
     secure_buffer* session_hash;
-    secure_buffer* generation_hash;
+    secure_buffer* generation_hash = NULL;
     secure_buffer* tmp;
 
     /* generate the master passphrase hash. */
@@ -69,11 +69,14 @@ status legacy_transformer_function(
         goto cleanup_master_hash;
     }
 
-    /* generate the generation hash. */
-    retval = generate_generation_hash(&generation_hash, alloc, meta);
-    if (STATUS_SUCCESS != retval)
+    if (NULL != meta)
     {
-        goto cleanup_session_hash;
+        /* generate the generation hash. */
+        retval = generate_generation_hash(&generation_hash, alloc, meta);
+        if (STATUS_SUCCESS != retval)
+        {
+            goto cleanup_session_hash;
+        }
     }
 
     /* generate the legacy hash. */
@@ -91,11 +94,14 @@ status legacy_transformer_function(
     goto cleanup_generation_hash;
 
 cleanup_generation_hash:
-    release_retval =
-        resource_release(secure_buffer_resource_handle(generation_hash));
-    if (STATUS_SUCCESS != release_retval)
+    if (NULL != generation_hash)
     {
-        retval = release_retval;
+        release_retval =
+            resource_release(secure_buffer_resource_handle(generation_hash));
+        if (STATUS_SUCCESS != release_retval)
+        {
+            retval = release_retval;
+        }
     }
 
 cleanup_session_hash:
@@ -242,7 +248,7 @@ static status generate_legacy_hash(
 {
     status retval;
     secure_buffer* tmp;
-    void *output_data, *master_data, *session_data, *generation_data;
+    void *output_data, *master_data, *session_data, *generation_data = NULL;
     size_t output_size, master_size, session_size, generation_size;
 
     /* create the output buffer. */
@@ -256,15 +262,28 @@ static status generate_legacy_hash(
     master_data = secure_buffer_data(&master_size, (secure_buffer*)master_hash);
     session_data =
         secure_buffer_data(&session_size, (secure_buffer*)session_hash);
-    generation_data =
-        secure_buffer_data(&generation_size, (secure_buffer*)generation_hash);
     output_data = secure_buffer_data(&output_size, tmp);
+
+    /* optionally get generation data. */
+    if (NULL != generation_hash)
+    {
+        generation_data =
+            secure_buffer_data(
+                &generation_size, (secure_buffer*)generation_hash);
+    }
 
     SHA256_CTX sha256;
     SHA256_Init(&sha256);
     SHA256_Update(&sha256, master_data, master_size);
     SHA256_Update(&sha256, session_data, session_size);
-    SHA256_Update(&sha256, generation_data, generation_size);
+
+    /* optionally update with generation data. */
+    if (NULL != generation_data)
+    {
+        SHA256_Update(&sha256, generation_data, generation_size);
+    }
+
+    /* finalize hash. */
     SHA256_Final(output_data, &sha256);
     explicit_bzero(&sha256, sizeof(sha256));
 
