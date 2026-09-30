@@ -40,6 +40,7 @@ struct metadata
     uint32_t generation;
     bool legacy_flag_populated;
     bool legacy_flag;
+    uint64_t iterations;
 };
 
 /**
