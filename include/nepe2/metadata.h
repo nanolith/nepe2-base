@@ -608,6 +608,31 @@ metadata_encoding_get(
     const char** encoding, const metadata* meta);
 
 /**
+ * \brief Set the iterations for a given \ref metadata instance.
+ *
+ * \param meta          The metadata instance for this operation.
+ * \param iterations    The number of iterations for the password KDF operation.
+ *
+ * \note If this \ref metadata instance is currently empty, and if this is the
+ * last field to set in order to make it whole, then this setter will make the
+ * instance whole.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - non-zero on failure.
+ *
+ * \pre
+ *      - \p meta must reference a valid \ref metadata instance.
+ * \post
+ *      - On success, the \p iterations field for this \ref metadata instance is
+ *        set.
+ *      - On failure, \p meta is unchanged.
+ */
+status FN_DECL_MUST_CHECK
+metadata_iterations_set(
+    metadata* meta, uint64_t iterations);
+
+/**
  * \brief Serialize a metadata record into a buffer.
  *
  * \param buffer        The pointer to the buffer pointer to hold the serialized
