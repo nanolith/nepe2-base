@@ -47,7 +47,7 @@ typedef struct transformer transformer;
  * \param alloc         The allocator to use for this operation.
  * \param master        The master passphrase to use for this operation.
  * \param session       The session passphrase to use for this operation.
- * \param meta          The metadata to use for this operation.
+ * \param meta          The metadata to use for this operation, ignored if NULL.
  *
  * \returns a status code indicating success or failure.
  *      - STATUS_SUCCESS on success.
