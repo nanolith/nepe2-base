@@ -50,6 +50,17 @@ struct database_value
  */
 status database_resource_release(RCPR_SYM(resource)* r);
 
+/**
+ * \brief Release a \ref database_value instance.
+ *
+ * \param r             The \ref database_value \ref resource to release.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status database_value_resource_release(RCPR_SYM(resource)* r);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
