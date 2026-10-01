@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include <nepe2/secure_buffer.h>
 #include <rcpr/allocator.h>
 
 /* C++ compatibility. */
