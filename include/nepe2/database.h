@@ -80,6 +80,18 @@ database_create(
 RCPR_SYM(resource)*
 database_resource_handle(database* db);
 
+/**
+ * \brief Given a \ref database_value instance, return the resource handle for
+ * this \ref database_value instance.
+ *
+ * \param db            The \ref database_value instance from which the resource
+ *                      handle is returned.
+ *
+ * \returns the resource handle for this \ref database instance.
+ */
+RCPR_SYM(resource)*
+database_value_resource_handle(database_value* val);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
