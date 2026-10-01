@@ -22,6 +22,11 @@ extern "C" {
  */
 typedef struct database database;
 
+/**
+ * \brief A database value opaque instance.
+ */
+typedef struct database_value database_value;
+
 /******************************************************************************/
 /* Start of constructors.                                                     */
 /******************************************************************************/
