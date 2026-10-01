@@ -24,6 +24,7 @@ struct database
     RCPR_SYM(resource) hdr;
     RCPR_SYM(allocator)* alloc;
     MDB_env* env;
+    MDB_dbi global_db;
 };
 
 /* C++ compatibility. */
