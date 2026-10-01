@@ -58,6 +58,22 @@ status FN_DECL_MUST_CHECK
 database_create(
     database** db, RCPR_SYM(allocator)* alloc, const char* dir_name);
 
+/******************************************************************************/
+/* Start of accessors.                                                        */
+/******************************************************************************/
+
+/**
+ * \brief Given a \ref database instance, return the resource handle for this
+ * \ref database instance.
+ *
+ * \param db            The \ref database instance from which the resource
+ *                      handle is returned.
+ *
+ * \returns the resource handle for this \ref database instance.
+ */
+RCPR_SYM(resource)*
+database_resource_handle(database* db);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
