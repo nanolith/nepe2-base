@@ -39,6 +39,17 @@ struct database_value
     secure_buffer* mac;
 };
 
+/**
+ * \brief Release a \ref database instance.
+ *
+ * \param r             The \ref database \ref resource to release.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status database_resource_release(RCPR_SYM(resource)* r);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
