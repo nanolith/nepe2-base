@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include <lmdb.h>
 #include <nepe2/database.h>
 #include <rcpr/resource/protected.h>
 
@@ -22,6 +23,7 @@ struct database
 {
     RCPR_SYM(resource) hdr;
     RCPR_SYM(allocator)* alloc;
+    MDB_env* env;
 };
 
 /* C++ compatibility. */
