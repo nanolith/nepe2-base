@@ -17,6 +17,8 @@ option(MODELCHECK_REQUIRED "Require Model Checking")
 
 #pkgconfig
 find_package(PkgConfig REQUIRED)
+#lmdb package
+pkg_search_module(lmdb REQUIRED IMPORTED_TARGET lmdb>=0.9.30)
 #minunit package
 pkg_search_module(minunit REQUIRED IMPORTED_TARGET minunit)
 #rcpr package
@@ -162,7 +164,7 @@ TARGET_COMPILE_OPTIONS(
     nepe2base PRIVATE -fPIC -O2 ${rcpr_CFLAGS}
     -Wall -Werror -Wextra -Wpedantic -Wno-unused-command-line-argument)
 TARGET_LINK_LIBRARIES(
-    nepe2base PRIVATE PkgConfig::rcpr PkgConfig::crypto)
+    nepe2base PRIVATE PkgConfig::rcpr PkgConfig::crypto PkgConfig::lmdb)
 
 ADD_LIBRARY(nepe2base-${CMAKE_PROJECT_VERSION} SHARED
     ${NEPE2BASE_SOURCES})
@@ -172,7 +174,7 @@ TARGET_COMPILE_OPTIONS(
     ${USE_EXTERN_ASSEMBLER})
 TARGET_LINK_LIBRARIES(
     nepe2base-${CMAKE_PROJECT_VERSION}
-    PRIVATE PkgConfig::rcpr PkgConfig::crypto)
+    PRIVATE PkgConfig::rcpr PkgConfig::crypto PkgConfig::lmdb)
 
 ADD_EXECUTABLE(testnepe2base
     ${NEPE2BASE_SOURCES} ${NEPE2BASE_TEST_SOURCES})
@@ -184,7 +186,7 @@ TARGET_COMPILE_OPTIONS(
 TARGET_LINK_LIBRARIES(
     testnepe2base
     PRIVATE -g -O0 --coverage PkgConfig::minunit PkgConfig::rcpr
-            PkgConfig::crypto)
+            PkgConfig::crypto PkgConfig::lmdb)
 set_source_files_properties(
     ${NEPE2BASE_TEST_SOURCES} PROPERTIES
     COMPILE_FLAGS "${STD_CXX_20} ${USE_INTERN_ASSEMBLER}")
@@ -210,6 +212,7 @@ FILE(APPEND ${NEPE2BASE_PC} "\nDescription: nepephemeral 2 base library")
 FILE(APPEND ${NEPE2BASE_PC} "\nVersion: ${CMAKE_PROJECT_VERSION}")
 FILE(APPEND ${NEPE2BASE_PC} "\nURL: https://github.com/nanolith/nepe2-base")
 FILE(APPEND ${NEPE2BASE_PC} "\nRequires: rcpr >= 0.4.4, libcrypto >= 2.0.0")
+FILE(APPEND ${NEPE2BASE_PC} ", lmdb >= 0.9.30")
 FILE(APPEND ${NEPE2BASE_PC} "\nprefix=${CMAKE_INSTALL_PREFIX}")
 FILE(APPEND ${NEPE2BASE_PC} "\nlibdir=\${prefix}/lib")
 FILE(APPEND ${NEPE2BASE_PC} "\nincludedir=\${prefix}/include")
