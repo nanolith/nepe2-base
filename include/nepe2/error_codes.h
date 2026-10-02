@@ -24,3 +24,4 @@
 #define ERROR_DATABASE_MDB_ENV_SET_MAXDBS                               0x340d
 #define ERROR_DATABASE_MDB_ENV_OPEN                                     0x340e
 #define ERROR_DATABASE_MDB_TXN_BEGIN                                    0x340f
+#define ERROR_DATABASE_MDB_DBI_OPEN                                     0x3410
