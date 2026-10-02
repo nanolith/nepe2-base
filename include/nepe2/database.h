@@ -33,7 +33,7 @@ typedef struct database_value database_value;
 /******************************************************************************/
 
 /**
- * \brief Create a database instance backed by the given directory name.
+ * \brief Open a database instance backed by the given directory name.
  *
  * \param db            Pointer to the database pointer to be set to the
  *                      created database instance on success.
@@ -61,7 +61,7 @@ typedef struct database_value database_value;
  *      - On failure, \p db is set to NULL and an error status is returned.
  */
 status FN_DECL_MUST_CHECK
-database_create(
+database_open(
     database** db, RCPR_SYM(allocator)* alloc, const char* dir_name);
 
 /******************************************************************************/
