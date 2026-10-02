@@ -23,3 +23,4 @@
 #define ERROR_DATABASE_MDB_ENV_SET_MAPSIZE                              0x340c
 #define ERROR_DATABASE_MDB_ENV_SET_MAXDBS                               0x340d
 #define ERROR_DATABASE_MDB_ENV_OPEN                                     0x340e
+#define ERROR_DATABASE_MDB_TXN_BEGIN                                    0x340f
