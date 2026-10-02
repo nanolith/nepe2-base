@@ -26,3 +26,4 @@
 #define ERROR_DATABASE_MDB_TXN_BEGIN                                    0x340f
 #define ERROR_DATABASE_MDB_DBI_OPEN                                     0x3410
 #define ERROR_DATABASE_MDB_TXN_COMMIT                                   0x3411
+#define ERROR_DATABASE_MAP_FULL                                         0x3412
