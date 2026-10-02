@@ -19,6 +19,11 @@
 extern "C" {
 # endif /*__cplusplus*/
 
+/**
+ * \brief The increment amount to use when the database runs out of space.
+ */
+#define DATABASE_MAP_SIZE_INCREMENT     (1UL * 1024UL * 1024UL)
+
 struct database
 {
     RCPR_SYM(resource) hdr;
