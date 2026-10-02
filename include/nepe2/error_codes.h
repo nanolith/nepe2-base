@@ -19,3 +19,4 @@
 #define ERROR_MAPPER_REGISTRY_CANNOT_BE_RELEASED                        0x3408
 #define ERROR_MAPPER_REGISTRY_NAME_ALREADY_REGISTERED                   0x3409
 #define ERROR_MAPPER_REGISTRY_NOT_FOUND                                 0x340a
+#define ERROR_DATABASE_MDB_ENV_CREATE                                   0x340b
