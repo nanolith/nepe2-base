@@ -156,6 +156,14 @@ database_open(
         goto cleanup_tmp;
     }
 
+    /* update the mapped database size based on the previously stored value. */
+    retval = database_update_size(tmp);
+    if (STATUS_SUCCESS != retval)
+    {
+        retval = ERROR_DATABASE_MAP_RESIZE_FAILURE;
+        goto cleanup_tmp;
+    }
+
     /* success. */
     *db = tmp;
     retval = STATUS_SUCCESS;
