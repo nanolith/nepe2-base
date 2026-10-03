@@ -28,3 +28,4 @@
 #define ERROR_DATABASE_MDB_TXN_COMMIT                                   0x3411
 #define ERROR_DATABASE_MAP_FULL                                         0x3412
 #define ERROR_DATABASE_MAP_RESIZE                                       0x3413
+#define ERROR_DATABASE_MAP_RESIZE_FAILURE                               0x3414
