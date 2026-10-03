@@ -32,3 +32,4 @@
 #define ERROR_DATABASE_ENVINFO                                          0x3415
 #define ERROR_DATABASE_SIZE_NOT_FOUND                                   0x3416
 #define ERROR_DATABASE_SIZE_QUERY_FAILED                                0x3417
+#define ERROR_DATABASE_SIZE_BAD                                         0x3418
