@@ -47,6 +47,7 @@ struct database_value
 enum database_global_settings
 {
     DATABASE_GLOBAL_SETTING_DATABASE_SIZE                       = 0x00000000,
+    DATABASE_GLOBAL_SETTING_SCHEMA                              = 0x00000001,
 };
 
 /**
