@@ -44,6 +44,11 @@ struct database_value
     secure_buffer* mac;
 };
 
+enum database_global_settings
+{
+    DATABASE_GLOBAL_SETTING_DATABASE_SIZE                       = 0x00000000,
+};
+
 /**
  * \brief Release a \ref database instance.
  *
