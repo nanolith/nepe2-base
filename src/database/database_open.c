@@ -52,6 +52,44 @@ status FN_DECL_MUST_CHECK
 database_open(
     database** db, RCPR_SYM(allocator)* alloc, const char* dir_name)
 {
+    return database_open_ex(db, alloc, dir_name, DATABASE_DEFAULT_MAP_SIZE);
+}
+
+/**
+ * \brief The extended form of the database open constructor allows for the
+ * initial map size to be explicitly set. This is used largely for testing.
+ *
+ * \param db            Pointer to the database pointer to be set to the
+ *                      created database instance on success.
+ * \param alloc         The allocator to use for this operation.
+ * \param dir_name      The directory name for this instance.
+ * \param map_size      The initial map size to use.
+ *
+ * \note This database instance is a \ref resource that must be released by
+ * calling \ref resource_release on its resource handle when it is no longer
+ * needed by the caller. The resource handle can be accessed by calling \ref
+ * database_resource_handle on this database instance.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ *
+ * \pre
+ *      - \p db must not reference a valid \ref database instance and
+ *        must not be NULL.
+ *      - \p alloc must reference a valid \ref allocator and must not be NULL.
+ *      - \p dir_name must be a valid string and must not be NULL.
+ * \post
+ *      - On success, \p db is set to a pointer to a valid \ref database
+ *      instance, which is a \ref resource owned by the caller that must be
+ *      released when no longer needed.
+ *      - On failure, \p db is set to NULL and an error status is returned.
+ */
+status FN_DECL_MUST_CHECK
+database_open_ex(
+    database** db, RCPR_SYM(allocator)* alloc, const char* dir_name,
+    size_t map_size)
+{
     status retval, release_retval;
     MDB_txn* txn;
     database* tmp = NULL;
@@ -78,7 +116,7 @@ database_open(
     }
 
     /* set the database map size. */
-    retval = mdb_env_set_mapsize(tmp->env, DATABASE_DEFAULT_MAP_SIZE);
+    retval = mdb_env_set_mapsize(tmp->env, map_size);
     if (STATUS_SUCCESS != retval)
     {
         retval = ERROR_DATABASE_MDB_ENV_SET_MAPSIZE;
