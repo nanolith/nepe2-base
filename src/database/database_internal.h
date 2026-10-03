@@ -92,6 +92,20 @@ status database_update_size(database* db);
  */
 status database_get_size(size_t* size, database* db, MDB_txn* txn);
 
+/**
+ * \brief Using the given transaction, update the size in the global settings
+ * table.
+ *
+ * \param db            The \ref database for this operation.
+ * \param txn           The transaction to use for this operation.
+ * \param size          The new size.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status database_set_size(database* db, MDB_txn* txn, size_t size);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
