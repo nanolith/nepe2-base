@@ -13,11 +13,6 @@
 #include "database_internal.h"
 
 /**
- * \brief The initial default map size is 10 MB.
- */
-#define DEFAULT_MAP_SIZE (10UL * 1024UL * 1024UL)
-
-/**
  * \brief Update the database size to the currently stored size in the global
  * settings table, or to the next increment of size.
  *
@@ -37,7 +32,7 @@ status database_update_size(database* db)
     while (retries < 3)
     {
         bool update_size = false;
-        size_t computed_size = DEFAULT_MAP_SIZE;
+        size_t computed_size = DATABASE_DEFAULT_MAP_SIZE;
 
         /* get the map size from the environment. */
         retval = mdb_env_info(db->env, &stat);

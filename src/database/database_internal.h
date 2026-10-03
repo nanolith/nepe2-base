@@ -20,9 +20,14 @@ extern "C" {
 # endif /*__cplusplus*/
 
 /**
+ * \brief The initial default map size is 10 MB.
+ */
+#define DATABASE_DEFAULT_MAP_SIZE       (10UL * 1024UL * 1024UL)
+
+/**
  * \brief The increment amount to use when the database runs out of space.
  */
-#define DATABASE_MAP_SIZE_INCREMENT     (1UL * 1024UL * 1024UL)
+#define DATABASE_MAP_SIZE_INCREMENT     ( 1UL * 1024UL * 1024UL)
 
 struct database
 {

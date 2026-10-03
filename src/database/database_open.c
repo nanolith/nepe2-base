@@ -21,11 +21,6 @@ resource_vtable database_vtable = {
 };
 
 /**
- * \brief The initial default map size is 10 MB.
- */
-#define DEFAULT_MAP_SIZE (10UL * 1024UL * 1024UL)
-
-/**
  * \brief Open a database instance backed by the given directory name.
  *
  * \param db            Pointer to the database pointer to be set to the
@@ -83,7 +78,7 @@ database_open(
     }
 
     /* set the database map size. */
-    retval = mdb_env_set_mapsize(tmp->env, DEFAULT_MAP_SIZE);
+    retval = mdb_env_set_mapsize(tmp->env, DATABASE_DEFAULT_MAP_SIZE);
     if (STATUS_SUCCESS != retval)
     {
         retval = ERROR_DATABASE_MDB_ENV_SET_MAPSIZE;
