@@ -108,7 +108,25 @@ database_open(
 
     /* begin transaction for opening databases. */
     retval = mdb_txn_begin(tmp->env, NULL, 0, &txn);
-    if (STATUS_SUCCESS != retval)
+    if (MDB_MAP_FULL == retval || MDB_MAP_RESIZED == retval)
+    {
+        /* attempt to resize the database. */
+        retval = mdb_env_set_mapsize(tmp->env, 0);
+        if (STATUS_SUCCESS != retval)
+        {
+            retval = ERROR_DATABASE_MDB_TXN_BEGIN;
+            goto cleanup_tmp;
+        }
+
+        /* retry the transaction. */
+        retval = mdb_txn_begin(tmp->env, NULL, 0, &txn);
+        if (STATUS_SUCCESS != retval)
+        {
+            retval = ERROR_DATABASE_MDB_TXN_BEGIN;
+            goto cleanup_tmp;
+        }
+    }
+    else if (STATUS_SUCCESS != retval)
     {
         retval = ERROR_DATABASE_MDB_TXN_BEGIN;
         goto cleanup_tmp;
