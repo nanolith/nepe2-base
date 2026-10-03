@@ -68,7 +68,7 @@ status database_value_resource_release(RCPR_SYM(resource)* r);
 
 /**
  * \brief Update the database size to the currently stored size in the global
- * settings table.
+ * settings table, or to the next increment of size.
  *
  * \param db            The \ref database for this operation.
  *
@@ -76,7 +76,7 @@ status database_value_resource_release(RCPR_SYM(resource)* r);
  *      - STATUS_SUCCESS on success.
  *      - a non-zero error code on failure.
  */
-status database_update_size_to_global(database* db);
+status database_update_size(database* db);
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
