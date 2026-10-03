@@ -78,6 +78,20 @@ status database_value_resource_release(RCPR_SYM(resource)* r);
  */
 status database_update_size(database* db);
 
+/**
+ * \brief Using the given read-only transaction, query the size from the global
+ * settings table.
+ *
+ * \param size          Pointer to the size variable set to size on success.
+ * \param db            The \ref database for this operation.
+ * \param txn           The transaction to use for this operation.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status database_get_size(size_t* size, database* db, MDB_txn* txn);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
