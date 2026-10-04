@@ -39,3 +39,4 @@
 #define ERROR_DATABASE_SCHEMA_BAD                                       0x341c
 #define ERROR_DATABASE_SCHEMA_UPDATE                                    0x341d
 #define ERROR_DATABASE_SCHEMA_NEEDS_UPGRADE                             0x341e
+#define ERROR_DATABASE_SCHEMA_UNSUPPORTED                               0x341f
