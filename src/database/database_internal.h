@@ -29,6 +29,11 @@ extern "C" {
  */
 #define DATABASE_MAP_SIZE_INCREMENT     ( 1UL * 1024UL * 1024UL)
 
+/**
+ * \brief The first schema version.
+ */
+#define DATABASE_SCHEMA_VERSION_1       0x00010000
+
 struct database
 {
     RCPR_SYM(resource) hdr;
