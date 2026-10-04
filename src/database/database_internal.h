@@ -117,6 +117,22 @@ status database_get_size(size_t* size, database* db, MDB_txn* txn);
  */
 status database_set_size(database* db, MDB_txn* txn, size_t size);
 
+/**
+ * \brief Using the given read-only transaction, query the schema version from
+ * the global settings table.
+ *
+ * \param schema        Pointer to the schema version variable set to the schema
+ *                      version of this database on success.
+ * \param db            The \ref database for this operation.
+ * \param txn           The transaction to use for this operation.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status database_get_schema_version(
+    uint32_t* schema, database* db, MDB_txn* txn);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
