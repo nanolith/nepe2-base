@@ -34,6 +34,11 @@ extern "C" {
  */
 #define DATABASE_SCHEMA_VERSION_1       0x00010000
 
+/**
+ * \brief The current schema version supported by this library.
+ */
+#define DATABASE_CURRENT_SCHEMA_VERSION DATABASE_SCHEMA_VERSION_1
+
 struct database
 {
     RCPR_SYM(resource) hdr;
