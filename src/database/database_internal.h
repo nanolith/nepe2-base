@@ -157,6 +157,17 @@ status database_get_schema_version(
  */
 status database_set_schema_version(database* db, MDB_txn* txn, uint32_t schema);
 
+/**
+ * \brief Check or insert the schema version into the database.
+ *
+ * \param db            The \ref database for this operation.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status database_check_or_update_schema(database* db);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
