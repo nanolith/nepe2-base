@@ -34,3 +34,4 @@
 #define ERROR_DATABASE_SIZE_QUERY_FAILED                                0x3417
 #define ERROR_DATABASE_SIZE_BAD                                         0x3418
 #define ERROR_DATABASE_SIZE_UPDATE                                      0x3419
+#define ERROR_DATABASE_SCHEMA_NOT_FOUND                                 0x341a
