@@ -62,7 +62,7 @@ status database_get_schema_version(
     /* read the schema version. */
     uint32_t net_schema;
     memcpy(&net_schema, val.mv_data, val.mv_size);
-    *schema = socket_utility_ntoh64(net_schema);
+    *schema = socket_utility_ntoh32(net_schema);
     retval = STATUS_SUCCESS;
     goto done;
 
