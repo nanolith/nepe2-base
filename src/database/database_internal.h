@@ -166,7 +166,7 @@ status database_set_schema_version(database* db, MDB_txn* txn, uint32_t schema);
  *      - STATUS_SUCCESS on success.
  *      - a non-zero error code on failure.
  */
-status database_check_or_update_schema(database* db);
+status database_check_or_insert_schema(database* db);
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
