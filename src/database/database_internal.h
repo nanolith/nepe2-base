@@ -175,6 +175,25 @@ status database_set_schema_version(database* db, MDB_txn* txn, uint32_t schema);
  */
 status database_check_or_insert_schema(database* db);
 
+/**
+ * \brief Generate a legacy database key using the given buffers.
+ *
+ * \param key           Pointer to a \ref secure_buffer pointer to receive the
+ *                      generated legacy key on success.
+ * \param alloc         The allocator to use for this operation.
+ * \param verify        The verification passphrase for this operation.
+ * \param master        The master passphrase for this operation.
+ * \param session       The session passphrase for this operation.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status database_create_legacy_key(
+    secure_buffer** key, RCPR_SYM(allocator)* alloc,
+    const secure_buffer* verify, const secure_buffer* master,
+    const secure_buffer* session);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
