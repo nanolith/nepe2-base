@@ -164,6 +164,13 @@ status database_set_schema_version(database* db, MDB_txn* txn, uint32_t schema);
  *
  * \returns a status code indicating success or failure.
  *      - STATUS_SUCCESS on success.
+ *      - ERROR_DATABASE_SCHEMA_NEEDS_UPGRADE if the schema version is older
+ *        than what this library supports and thus needs a call to \ref
+ *        database_upgrade to continue.
+ *      - ERROR_DATABASE_SCHEMA_UNSUPPORTED if the schema version is newer than
+ *        what this library supports and thus it is the library that needs
+ *        upgrading as not to inadvertently damage the integrity of this
+ *        database.
  *      - a non-zero error code on failure.
  */
 status database_check_or_insert_schema(database* db);
