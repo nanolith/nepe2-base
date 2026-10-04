@@ -38,3 +38,4 @@
 #define ERROR_DATABASE_SCHEMA_QUERY_FAILED                              0x341b
 #define ERROR_DATABASE_SCHEMA_BAD                                       0x341c
 #define ERROR_DATABASE_SCHEMA_UPDATE                                    0x341d
+#define ERROR_DATABASE_SCHEMA_NEEDS_UPGRADE                             0x341e
