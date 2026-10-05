@@ -89,18 +89,6 @@ status database_resource_release(RCPR_SYM(resource)* r);
 status database_value_resource_release(RCPR_SYM(resource)* r);
 
 /**
- * \brief Update the database size to the currently stored size in the global
- * settings table, or to the next increment of size.
- *
- * \param db            The \ref database for this operation.
- *
- * \returns a status code indicating success or failure.
- *      - STATUS_SUCCESS on success.
- *      - a non-zero error code on failure.
- */
-status database_update_size(database* db);
-
-/**
  * \brief Using the given read-only transaction, query the size from the global
  * settings table.
  *
