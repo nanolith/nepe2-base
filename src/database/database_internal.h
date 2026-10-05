@@ -169,7 +169,7 @@ status database_create_legacy_key(
  * \brief Generate a database key using the given buffers.
  *
  * \param key           Pointer to a \ref secure_buffer pointer to receive the
- *                      generated legacy key on success.
+ *                      generated key on success.
  * \param alloc         The allocator to use for this operation.
  * \param verify        The verification passphrase for this operation.
  * \param master        The master passphrase for this operation.
