@@ -32,4 +32,7 @@ void secure_buffer_truncate(secure_buffer* buffer, size_t size)
     uint8_t* bptr = buffer->data;
     bptr += size;
     explicit_bzero(bptr, size - original_size);
+
+    /* update the buffer size. */
+    buffer->size = size;
 }
