@@ -215,8 +215,8 @@ status database_create_key(
     const secure_buffer* session);
 
 /**
- * \brief Using the given read-only transaction, query the schema version from
- * the database encryption key salt.
+ * \brief Using the given read-only transaction, query the the database
+ * encryption key salt.
  *
  * \param salt          Pointer to the salt buffer pointer to set to the salt
  *                      for this database on success.
