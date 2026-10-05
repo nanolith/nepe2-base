@@ -157,6 +157,22 @@ status database_update_size(database* db);
  */
 status database_check_or_insert_schema(database* db);
 
+/**
+ * \brief Get or insert the encryption key salt value into the global settings
+ * table.
+ *
+ * \param salt          Pointer to the salt buffer pointer to set to the salt
+ *                      for this database on success.
+ * \param alloc         The \ref allocator to use for this operation.
+ * \param db            The \ref database for this operation.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status database_get_or_insert_encryption_salt(
+    secure_buffer** salt, RCPR_SYM(allocator)* alloc, database* db);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
