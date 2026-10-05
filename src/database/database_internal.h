@@ -230,6 +230,22 @@ status database_create_key(
 status database_get_encryption_salt(
     secure_buffer* salt, database* db, MDB_txn* txn);
 
+/**
+ * \brief Using the given transaction, insert a cryptographically random salt
+ * into the global settings table.
+ *
+ * \param salt          Pointer to the salt buffer pointer to set to the salt
+ *                      for this database on success.
+ * \param db            The \ref database for this operation.
+ * \param txn           The transaction to use for this operation.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status database_insert_encryption_salt(
+    secure_buffer** salt, database* db, MDB_txn* txn);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
