@@ -256,6 +256,7 @@ status database_insert_encryption_salt(
  *
  * \param salt          Pointer to the salt buffer pointer to set to the salt
  *                      for this database on success.
+ * \param alloc         The \ref allocator to use for this operation.
  * \param db            The \ref database for this operation.
  *
  * \returns a status code indicating success or failure.
@@ -263,7 +264,7 @@ status database_insert_encryption_salt(
  *      - a non-zero error code on failure.
  */
 status database_get_or_insert_encryption_salt(
-    secure_buffer** salt, database* db);
+    secure_buffer** salt, RCPR_SYM(allocator)* alloc, database* db);
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
