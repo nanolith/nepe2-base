@@ -173,6 +173,24 @@ status database_check_or_insert_schema(database* db);
 status database_get_or_insert_encryption_salt(
     secure_buffer** salt, RCPR_SYM(allocator)* alloc, database* db);
 
+/**
+ * \brief Create the encryption key for the database from a master passphrase
+ * and a salt.
+ *
+ * \param key           Pointer to a \ref secure_buffer pointer to receive the
+ *                      generated encryption key on success.
+ * \param alloc         The allocator to use for this operation.
+ * \param master        The master passphrase for this operation.
+ * \param salt          The salt for this operation.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status database_create_encryption_key(
+    secure_buffer** key, RCPR_SYM(allocator)* alloc,
+    const secure_buffer* master, const secure_buffer* salt);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
