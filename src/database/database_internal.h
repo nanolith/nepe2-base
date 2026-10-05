@@ -214,6 +214,22 @@ status database_create_key(
     const secure_buffer* verify, const secure_buffer* master,
     const secure_buffer* session);
 
+/**
+ * \brief Using the given read-only transaction, query the schema version from
+ * the database encryption key salt.
+ *
+ * \param salt          Pointer to the salt buffer pointer to set to the salt
+ *                      for this database on success.
+ * \param db            The \ref database for this operation.
+ * \param txn           The transaction to use for this operation.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status database_get_encryption_salt(
+    secure_buffer* salt, database* db, MDB_txn* txn);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
