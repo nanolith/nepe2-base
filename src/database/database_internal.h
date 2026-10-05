@@ -228,7 +228,7 @@ status database_create_key(
  *      - a non-zero error code on failure.
  */
 status database_get_encryption_salt(
-    secure_buffer* salt, database* db, MDB_txn* txn);
+    secure_buffer** salt, database* db, MDB_txn* txn);
 
 /**
  * \brief Using the given transaction, insert a cryptographically random salt
