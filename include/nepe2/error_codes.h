@@ -40,3 +40,4 @@
 #define ERROR_DATABASE_SCHEMA_UPDATE                                    0x341d
 #define ERROR_DATABASE_SCHEMA_NEEDS_UPGRADE                             0x341e
 #define ERROR_DATABASE_SCHEMA_UNSUPPORTED                               0x341f
+#define ERROR_DATABASE_SALT_NOT_FOUND                                   0x3420
