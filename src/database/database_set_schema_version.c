@@ -1,4 +1,4 @@
- /**
+/**
  * \file database/database_set_schema_version.c
  *
  * \brief Set the schema version in the global settings table.
