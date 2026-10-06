@@ -134,6 +134,7 @@ terminal_readpassphrase(
     secure_buffer_truncate(tmp, offset);
 
     /* success. */
+    printf("\n");
     retval = STATUS_SUCCESS;
     *passphrase = tmp;
     goto done;
