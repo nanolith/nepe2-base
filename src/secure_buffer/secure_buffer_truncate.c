@@ -31,7 +31,7 @@ void secure_buffer_truncate(secure_buffer* buffer, size_t size)
     /* make sure the truncated area has been cleared. */
     uint8_t* bptr = buffer->data;
     bptr += size;
-    explicit_bzero(bptr, size - original_size);
+    explicit_bzero(bptr, original_size - size);
 
     /* update the buffer size. */
     buffer->size = size;
