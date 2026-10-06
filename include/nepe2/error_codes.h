@@ -46,3 +46,4 @@
 #define ERROR_DATABASE_SALT_UPDATE                                      0x3423
 #define ERROR_DATABASE_ENCRYPTION_KEY_CREATE                            0x3424
 #define ERROR_TERMINAL_READPASSPHRASE                                   0x3425
+#define ERROR_TERMINAL_STDIN_NOT_A_TERMINAL                             0x3426
