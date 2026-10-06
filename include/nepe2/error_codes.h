@@ -45,3 +45,4 @@
 #define ERROR_DATABASE_SALT_GENERATE_FAILED                             0x3422
 #define ERROR_DATABASE_SALT_UPDATE                                      0x3423
 #define ERROR_DATABASE_ENCRYPTION_KEY_CREATE                            0x3424
+#define ERROR_TERMINAL_READPASSPHRASE                                   0x3425
