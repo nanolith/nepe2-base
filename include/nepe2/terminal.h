@@ -43,6 +43,25 @@ terminal_readpassphrase(
     secure_buffer** passphrase, RCPR_SYM(allocator)* alloc, size_t max_length,
     bool truncate);
 
+/**
+ * \brief Present a prompt with a sequence of one letter choices, setting the
+ * output selection variable based on this choice.
+ *
+ * \param selection         Pointer to the output variable to be set with this
+ *                          choice.
+ * \param prompt            The prompt to be presented, without the choices.
+ * \param first             The first choice; this should be a character.
+ * \param ...               The remaining choices, terminated by -1.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - ERROR_TERMINAL_BAD_CHOICE if the selection made did not match any of
+ *        the choices.
+ */
+status FN_DECL_MUST_CHECK
+terminal_readchoice(
+    int* selection, const char* prompt, int first, ...);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
