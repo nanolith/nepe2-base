@@ -108,6 +108,9 @@ terminal_readpassphrase(
         }
     }
 
+    /* ensure that we can synchronize with stdin. */
+    tcflush(0, TCIFLUSH);
+
     /* Warn if the passphrase was truncated. */
     if (warn_truncated)
     {
