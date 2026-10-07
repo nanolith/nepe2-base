@@ -48,3 +48,4 @@
 #define ERROR_TERMINAL_READPASSPHRASE                                   0x3425
 #define ERROR_TERMINAL_STDIN_NOT_A_TERMINAL                             0x3426
 #define ERROR_TERMINAL_TCSETATTR                                        0x3427
+#define ERROR_TERMINAL_BAD_CHOICE                                       0x3428
