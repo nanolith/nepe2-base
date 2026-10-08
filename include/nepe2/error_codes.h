@@ -49,3 +49,4 @@
 #define ERROR_TERMINAL_STDIN_NOT_A_TERMINAL                             0x3426
 #define ERROR_TERMINAL_TCSETATTR                                        0x3427
 #define ERROR_TERMINAL_BAD_CHOICE                                       0x3428
+#define ERROR_DATABASE_VALUE_IV_GENERATE_FAILED                         0x3429
