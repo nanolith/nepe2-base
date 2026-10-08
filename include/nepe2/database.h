@@ -220,6 +220,22 @@ status database_create_encryption_key(
     secure_buffer** key, RCPR_SYM(allocator)* alloc,
     const secure_buffer* master, const secure_buffer* salt);
 
+/**
+ * \brief Insert a value into the database.
+ *
+ * \param db            The database into which this value is inserted.
+ * \param value         The value to insert.
+ * \param overwrite     The overwrite flag should be set to true to overwrite an
+ *                      existing value in the database.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status FN_DECL_MUST_CHECK
+database_upsert_value(
+    database* db, const database_value* value, bool overwrite);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
