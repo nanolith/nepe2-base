@@ -220,6 +220,25 @@ status database_insert_encryption_salt(
     secure_buffer** salt, RCPR_SYM(allocator)* alloc, database* db,
     MDB_txn* txn);
 
+/**
+ * \brief Create a derived key for encryption or message authentication using an
+ * encryption key, an IV, and an offset.
+ *
+ * \param key           Pointer to the \ref secure_buffer pointer to store the
+ *                      derived key.
+ * \param alloc         The allocator to use for this operation.
+ * \param enc           The encryption key to use for this operation.
+ * \param IV            The initialization vector to use for this operation.
+ * \param offset        The offset to use for this operation.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status database_derived_key_create(
+    secure_buffer** key, RCPR_SYM(allocator)* alloc, const secure_buffer* enc,
+    const secure_buffer* IV, uint32_t offset);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
