@@ -53,3 +53,4 @@
 #define ERROR_DATABASE_DERIVED_KEY_CREATE                               0x342a
 #define ERROR_DATABASE_CIPHER_CREATE                                    0x342b
 #define ERROR_DATABASE_VALUE_MAC                                        0x342c
+#define ERROR_DATABASE_METADATA_UPSERT_FAILURE                          0x342d
