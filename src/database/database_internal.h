@@ -53,7 +53,7 @@ struct database_value
     RCPR_SYM(resource) hdr;
     RCPR_SYM(allocator)* alloc;
     const secure_buffer* encryption_key;
-    const secure_buffer* database_key;
+    secure_buffer* database_key;
     secure_buffer* IV;
     secure_buffer* ciphertext;
     secure_buffer* mac;
