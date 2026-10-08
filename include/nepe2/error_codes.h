@@ -52,3 +52,4 @@
 #define ERROR_DATABASE_VALUE_IV_GENERATE_FAILED                         0x3429
 #define ERROR_DATABASE_DERIVED_KEY_CREATE                               0x342a
 #define ERROR_DATABASE_CIPHER_CREATE                                    0x342b
+#define ERROR_DATABASE_VALUE_MAC                                        0x342c
