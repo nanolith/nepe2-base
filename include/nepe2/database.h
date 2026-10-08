@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include <nepe2/metadata.h>
 #include <nepe2/secure_buffer.h>
 #include <rcpr/allocator.h>
 
@@ -98,6 +99,34 @@ status FN_DECL_MUST_CHECK
 database_open_ex(
     database** db, RCPR_SYM(allocator)* alloc, const char* dir_name,
     size_t map_size);
+
+/**
+ * \brief Create a \ref database_value instance from the given verification
+ * passphrase, master passphrase, session passphrase, encryption key, and
+ * metadata.
+ *
+ * \note The legacy flag in the metadata controls whether this is a legacy
+ * Nepephemeral 1 entry or a modern metadata entry. This, in turn, controls the
+ * database key that is generated.
+ *
+ * \param value             Pointer to the \ref database_value pointer to be set
+ *                          with this value on success.
+ * \param alloc             The allocator to use for this operation.
+ * \param meta              The metadata to use to create this value.
+ * \param verify            The verification passphrase for this operation.
+ * \param master            The master passphrase for this operation.
+ * \param session           The session passphrase for this operation.
+ * \param encryption_key    The encryption key for this operation.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status FN_DECL_MUST_CHECK
+database_value_create(
+    database_value** value, RCPR_SYM(allocator)* alloc, const metadata* meta,
+    const secure_buffer* verify, const secure_buffer* master,
+    const secure_buffer* session, const secure_buffer* encryption_key);
 
 /******************************************************************************/
 /* Start of accessors.                                                        */
