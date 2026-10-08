@@ -51,3 +51,4 @@
 #define ERROR_TERMINAL_BAD_CHOICE                                       0x3428
 #define ERROR_DATABASE_VALUE_IV_GENERATE_FAILED                         0x3429
 #define ERROR_DATABASE_DERIVED_KEY_CREATE                               0x342a
+#define ERROR_DATABASE_CIPHER_CREATE                                    0x342b
