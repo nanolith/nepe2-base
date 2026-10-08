@@ -128,6 +128,30 @@ database_value_create(
     const secure_buffer* verify, const secure_buffer* master,
     const secure_buffer* session, const secure_buffer* encryption_key);
 
+/**
+ * \brief Create a \ref database_value instance from the given verification
+ * passphrase, master passphrase, hash id, encryption key, and
+ * metadata.
+ *
+ * \param value             Pointer to the \ref database_value pointer to be set
+ *                          with this value on success.
+ * \param alloc             The allocator to use for this operation.
+ * \param meta              The metadata to use to create this value.
+ * \param verify            The verification passphrase for this operation.
+ * \param master            The master passphrase for this operation.
+ * \param hash_id           The hash_id to use as a key for this record.
+ * \param encryption_key    The encryption key for this operation.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status FN_DECL_MUST_CHECK
+database_value_create_with_hash_id(
+    database_value** value, RCPR_SYM(allocator)* alloc, const metadata* meta,
+    const secure_buffer* verify, const secure_buffer* master,
+    const secure_buffer* hash_id, const secure_buffer* encryption_key);
+
 /******************************************************************************/
 /* Start of accessors.                                                        */
 /******************************************************************************/
