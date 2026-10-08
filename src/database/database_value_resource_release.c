@@ -29,6 +29,17 @@ status database_value_resource_release(RCPR_SYM(resource)* r)
     /* cache allocator. */
     rcpr_allocator* alloc = val->alloc;
 
+    /* release database key if set. */
+    if (NULL != val->database_key)
+    {
+        release_retval =
+            resource_release(secure_buffer_resource_handle(val->database_key));
+        if (STATUS_SUCCESS != release_retval)
+        {
+            retval = release_retval;
+        }
+    }
+
     /* release IV if set. */
     if (NULL != val->IV)
     {
