@@ -23,7 +23,7 @@ RCPR_VTABLE resource_vtable database_value_vtable = {
 };
 
 static status create_database_key(
-    database_value* value, RCPR_SYM(allocator)* alloc,
+    secure_buffer** key, RCPR_SYM(allocator)* alloc,
     const secure_buffer* verify, const secure_buffer* master,
     const secure_buffer* session, const metadata* meta);
 static status encrypt_plaintext(
@@ -61,10 +61,70 @@ database_value_create(
     const secure_buffer* session, const secure_buffer* encryption_key)
 {
     status retval, release_retval;
+    secure_buffer* database_key;
+
+    /* create a database key from the passphrases. */
+    retval =
+        create_database_key(
+            &database_key, alloc, verify, master, session, meta);
+    if (STATUS_SUCCESS != retval)
+    {
+        goto done;
+    }
+
+    /* create the record with this database key. */
+    retval =
+        database_value_create_with_hash_id(
+            value, alloc, meta, database_key, encryption_key);
+    if (STATUS_SUCCESS != retval)
+    {
+        goto cleanup_database_key;
+    }
+
+    /* success. */
+    retval = STATUS_SUCCESS;
+    goto cleanup_database_key;
+
+cleanup_database_key:
+    release_retval =
+        resource_release(secure_buffer_resource_handle(database_key));
+    if (STATUS_SUCCESS != release_retval)
+    {
+        retval = release_retval;
+    }
+
+done:
+    return retval;
+}
+
+/**
+ * \brief Create a \ref database_value instance from the given verification
+ * passphrase, master passphrase, hash id, encryption key, and
+ * metadata.
+ *
+ * \param value             Pointer to the \ref database_value pointer to be set
+ *                          with this value on success.
+ * \param alloc             The allocator to use for this operation.
+ * \param meta              The metadata to use to create this value.
+ * \param hash_id           The hash_id to use as a key for this record.
+ * \param encryption_key    The encryption key for this operation.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status FN_DECL_MUST_CHECK
+database_value_create_with_hash_id(
+    database_value** value, RCPR_SYM(allocator)* alloc, const metadata* meta,
+    const secure_buffer* hash_id, const secure_buffer* encryption_key)
+{
+    status retval, release_retval;
     database_value* tmp = NULL;
     secure_buffer *plaintext, *derived_enc_key, *derived_mac_key;
     uint8_t *IV_data;
-    size_t IV_size;
+    size_t IV_size, hash_id_size, database_key_size;
+    const void* hash_id_data;
+    void* database_key_data;
 
     /* allocate memory for this instance. */
     retval = rcpr_allocator_allocate(alloc, (void**)&tmp, sizeof(*tmp));
@@ -78,12 +138,20 @@ database_value_create(
     resource_init(&tmp->hdr, &database_value_vtable);
     tmp->alloc = alloc;
 
+    /* get hash id buffer. */
+    hash_id_data = secure_buffer_data(&hash_id_size, (secure_buffer*)hash_id);
+
     /* create the database key. */
-    retval = create_database_key(tmp, alloc, verify, master, session, meta);
+    retval = secure_buffer_create(&tmp->database_key, alloc, hash_id_size);
     if (STATUS_SUCCESS != retval)
     {
         goto cleanup_tmp;
     }
+
+    /* copy key data. */
+    database_key_data =
+        secure_buffer_data(&database_key_size, tmp->database_key);
+    memcpy(database_key_data, hash_id_data, database_key_size);
 
     /* create a buffer for holding the IV. */
     retval = secure_buffer_create(&tmp->IV, alloc, 48);
@@ -190,7 +258,8 @@ done:
  * metadata. If the legacy flag is set to true, create a legacy key, otherwise,
  * create a regular key.
  *
- * \param value             The value to which this key is stored.
+ * \param key               Pointer to secure buffer pointer where the key is
+ *                          stored.
  * \param alloc             The allocator to use for this operation.
  * \param verify            The verification passphrase.
  * \param master            The master passphrase.
@@ -202,7 +271,7 @@ done:
  *      - a non-zero error code on failure.
  */
 static status create_database_key(
-    database_value* value, RCPR_SYM(allocator)* alloc,
+    secure_buffer** key, RCPR_SYM(allocator)* alloc,
     const secure_buffer* verify, const secure_buffer* master,
     const secure_buffer* session, const metadata* meta)
 {
@@ -220,14 +289,11 @@ static status create_database_key(
     if (legacy)
     {
         retval =
-            database_create_legacy_key(
-                &value->database_key, alloc, verify, master, session);
+            database_create_legacy_key(key, alloc, verify, master, session);
     }
     else
     {
-        retval =
-            database_create_key(
-                &value->database_key, alloc, verify, master, session);
+        retval = database_create_key(key, alloc, verify, master, session);
     }
 
     goto done;
