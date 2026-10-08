@@ -224,6 +224,7 @@ status database_create_encryption_key(
  * \brief Insert a value into the database.
  *
  * \param db            The database into which this value is inserted.
+ * \param alloc         The allocator to use for this operation.
  * \param value         The value to insert.
  * \param overwrite     The overwrite flag should be set to true to overwrite an
  *                      existing value in the database.
@@ -234,7 +235,8 @@ status database_create_encryption_key(
  */
 status FN_DECL_MUST_CHECK
 database_upsert_value(
-    database* db, const database_value* value, bool overwrite);
+    database* db, RCPR_SYM(allocator)* alloc, const database_value* value,
+    bool overwrite);
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
