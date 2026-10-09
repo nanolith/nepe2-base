@@ -55,3 +55,4 @@
 #define ERROR_DATABASE_VALUE_MAC                                        0x342c
 #define ERROR_DATABASE_METADATA_UPSERT_FAILURE                          0x342d
 #define ERROR_DATABASE_WOULD_OVERWRITE                                  0x342e
+#define ERROR_SECURE_BUFFER_BASE64_DECODE                               0x342f
