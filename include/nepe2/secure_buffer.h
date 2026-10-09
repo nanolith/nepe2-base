@@ -60,6 +60,40 @@ status FN_DECL_MUST_CHECK
 secure_buffer_create(
     secure_buffer** buffer, RCPR_SYM(allocator)* alloc, size_t size);
 
+/**
+ * \brief Create a secure buffer from a Base64 string.
+ *
+ * \param buffer        Pointer to the pointer to receive the secure buffer on
+ *                      success.
+ * \param alloc         The allocator instance to use for this operation.
+ * \param input         Pointer to the input buffer in Base64 representation.
+ * \param size          The size of the secure buffer to allocate.
+ *
+ * \note This secure buffer is a \ref resource that must be released by calling
+ * \ref resource_release on its resource handle when it is no longer needed by
+ * the caller. The resource handle can be accessed by calling
+ * \ref secure_buffer_resource_handle on this secure buffer instance.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - ERROR_GENERAL_OUT_OF_MEMORY if this method failed due to an
+ *        out-of-memory condition.
+ *
+ * \pre
+ *      - \p buffer must not reference a valid \ref secure_buffer instance and
+ *        must not be NULL.
+ *      - \p alloc must reference a valid \ref allocator and must not be NULL.
+ * \post
+ *      - On success, \p buffer is set to a pointer to a valid
+ *        \ref secure_buffer instance, which is a \ref resource owned by the
+ *        caller that must be released when no longer needed.
+ *      - On failure, \p buffer is not changed and an error status is returned.
+ */
+status FN_DECL_MUST_CHECK
+secure_buffer_create_from_base64(
+    secure_buffer** buffer, RCPR_SYM(allocator)* alloc, const void* input,
+    size_t size);
+
 /******************************************************************************/
 /* Start of accessors.                                                        */
 /******************************************************************************/
