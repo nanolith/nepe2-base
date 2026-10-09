@@ -35,18 +35,10 @@ status database_create_legacy_key(
 {
     status retval, release_retval;
     transformer* xform;
-    mapper* m;
-    secure_buffer *hash1, *meta, *tmp;
+    secure_buffer *hash1, *tmp;
 
     /* Look up the legacy transformer. */
     retval = transformer_registry_lookup(&xform, "legacy");
-    if (STATUS_SUCCESS != retval)
-    {
-        goto done;
-    }
-
-    /* Look up the base64 mapper. */
-    retval = mapper_registry_lookup(&m, "SYMBOLIC-Base64");
     if (STATUS_SUCCESS != retval)
     {
         goto done;
@@ -60,30 +52,16 @@ status database_create_legacy_key(
     }
 
     /* create the metadata hash. */
-    retval = transformer_transform(&meta, xform, alloc, hash1, verify, NULL);
+    retval = transformer_transform(&tmp, xform, alloc, hash1, verify, NULL);
     if (STATUS_SUCCESS != retval)
     {
         goto cleanup_hash1;
     }
 
-    /* create the output key. */
-    retval = mapper_map(&tmp, m, alloc, meta);
-    if (STATUS_SUCCESS != retval)
-    {
-        goto cleanup_meta;
-    }
-
     /* success. */
     *key = tmp;
     retval = STATUS_SUCCESS;
-    goto cleanup_meta;
-
-cleanup_meta:
-    release_retval = resource_release(secure_buffer_resource_handle(meta));
-    if (STATUS_SUCCESS != release_retval)
-    {
-        retval = release_retval;
-    }
+    goto cleanup_hash1;
 
 cleanup_hash1:
     release_retval = resource_release(secure_buffer_resource_handle(hash1));
