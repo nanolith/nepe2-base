@@ -44,6 +44,11 @@ extern "C" {
  */
 #define DATABASE_ENCRYPTION_KEY_OFFSET  0x01020304
 
+/**
+ * \brief The database mac key offset.
+ */
+#define DATABASE_MAC_KEY_OFFSET         0x90807060
+
 struct database
 {
     RCPR_SYM(resource) hdr;
