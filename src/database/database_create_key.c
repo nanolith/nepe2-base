@@ -67,7 +67,7 @@ cleanup_hash1:
     release_retval = resource_release(secure_buffer_resource_handle(hash1));
     if (STATUS_SUCCESS != release_retval)
     {
-        release_retval = retval;
+        retval = release_retval;
     }
 
 done:
