@@ -67,6 +67,28 @@ enum database_global_settings
 };
 
 /**
+ * \brief Create a \ref database_value instance using the provided hash_id and
+ * blob from the database.
+ *
+ * \note This does not verify that this value is valid. That is up to
+ * \ref metadata_from_database_value.
+ *
+ * \param value             Pointer to the \ref database_value pointer to be set
+ *                          with this value on success.
+ * \param alloc             The allocator to use for this operation.
+ * \param hash_id           The hash_id to use as a key for this record.
+ * \param blob              The blob from the database.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status FN_DECL_MUST_CHECK
+database_value_create_from_blob(
+    database_value** value, RCPR_SYM(allocator)* alloc,
+    const secure_buffer* hash_id, const secure_buffer* blob);
+
+/**
  * \brief Release a \ref database instance.
  *
  * \param r             The \ref database \ref resource to release.
