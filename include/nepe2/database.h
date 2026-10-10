@@ -259,6 +259,33 @@ database_upsert_value(
     database* db, RCPR_SYM(allocator)* alloc, const database_value* value,
     bool overwrite);
 
+/**
+ * \brief Look up a database value using the given verification passphrase,
+ * master passphrase, and session passphrase.
+ *
+ * \note If \p legacy_fb is true, the legacy metadata will be considered if the
+ * initial lookup fails.
+ *
+ * \param value         Pointer to the \ref database_value pointer to update
+ *                      with the created \ref database_value on success.
+ * \param alloc         The allocator to use for this operation.
+ * \param db            The database from which this value is read.
+ * \param verify        The verification passphrase for this entry.
+ * \param master        The master passphrase for this entry.
+ * \param session       The session passphrase for this entry.
+ * \param legacy_fb     If true, fall back to legacy metadata if the query
+ *                      fails.
+ *
+ * \returns a status code indicating success or failure.
+ *      - STATUS_SUCCESS on success.
+ *      - a non-zero error code on failure.
+ */
+status FN_DECL_MUST_CHECK
+database_lookup_value(
+    database_value** value, RCPR_SYM(allocator)* alloc, database* db,
+    const secure_buffer* verify, const secure_buffer* master,
+    const secure_buffer* session, bool legacy_fb);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
