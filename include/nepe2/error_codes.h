@@ -58,3 +58,4 @@
 #define ERROR_SECURE_BUFFER_BASE64_DECODE                               0x342f
 #define ERROR_DATABASE_VALUE_BAD_BLOB                                   0x3430
 #define ERROR_DATABASE_NOT_FOUND                                        0x3431
+#define ERROR_DATABASE_METADATA_LOOKUP_FAILURE                          0x3432
