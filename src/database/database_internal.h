@@ -39,6 +39,11 @@ extern "C" {
  */
 #define DATABASE_CURRENT_SCHEMA_VERSION DATABASE_SCHEMA_VERSION_1
 
+/**
+ * \brief The database encryption key offset.
+ */
+#define DATABASE_ENCRYPTION_KEY_OFFSET  0x01020304
+
 struct database
 {
     RCPR_SYM(resource) hdr;
