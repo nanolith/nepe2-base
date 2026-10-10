@@ -184,7 +184,8 @@ database_value_create_with_hash_id(
     /* Create the derived mac key buffer. */
     retval =
         database_derived_key_create(
-            &derived_mac_key, alloc, encryption_key, tmp->IV, 0x90807060);
+            &derived_mac_key, alloc, encryption_key, tmp->IV,
+            DATABASE_MAC_KEY_OFFSET);
     if (STATUS_SUCCESS != retval)
     {
         goto cleanup_derived_enc_key;
