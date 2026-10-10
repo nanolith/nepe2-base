@@ -99,28 +99,6 @@ database_value_create_from_blob(
     const secure_buffer* hash_id, const secure_buffer* blob);
 
 /**
- * \brief Create a \ref metadata instance from the given \ref database_value and
- * \p encryption_key.
- *
- * \note This method verifies the message authentication code in this
- * \ref database_value using the secret key.
-
- * \param meta              Pointer to the \ref metadata pointer to be set
- *                          with the created instance on success.
- * \param alloc             The allocator to use for this operation.
- * \param value             The \ref database_value to use for this operation.
- * \param encryption_key    The encryption key to use for this operation.
- *
- * \returns a status code indicating success or failure.
- *      - STATUS_SUCCESS on success.
- *      - a non-zero error code on failure.
- */
-status FN_DECL_MUST_CHECK
-metadata_from_database_value(
-    metadata** meta, RCPR_SYM(allocator)* alloc,
-    const database_value* value, const secure_buffer* encryption_key);
-
-/**
  * \brief Release a \ref database instance.
  *
  * \param r             The \ref database \ref resource to release.
