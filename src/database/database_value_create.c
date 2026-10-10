@@ -350,7 +350,6 @@ static status encrypt_plaintext(
     /* skip to the IV for the cipher. */
     IV_data += 32;
 
-
     /* create a cipher context. */
     enc = EVP_CIPHER_CTX_new();
     if (NULL == enc)
